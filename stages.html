@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mission Stages | Project Runway – Mission Smooth Landing</title>
+    <style>
+        :root {
+            --color-bg-main: #f3f2f1;
+            --color-primary: #0078d4;
+            --color-primary-dark: #005a9e;
+            --color-accent-orange: #ff8c00;
+            --color-deep-navy: #001f3f;
+            --color-text-main: #323130;
+            --color-text-muted: #605e5c;
+            --radius-lg: 24px;
+            --radius-md: 16px;
+            --shadow-soft: 0 14px 32px rgba(0, 31, 63, 0.08);
+            font-family: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: var(--color-bg-main);
+            color: var(--color-text-main);
+            line-height: 1.7;
+            letter-spacing: 0.01em;
+            padding: 0 24px 96px;
+        }
+
+        .page-shell {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(12px);
+            background: rgba(243, 242, 241, 0.92);
+            border-bottom: 1px solid rgba(0, 31, 63, 0.08);
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            padding: 16px 0;
+        }
+
+        .brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--color-deep-navy);
+            text-decoration: none;
+        }
+
+        .brand img {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+            border-radius: 10px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--color-text-muted);
+            font-weight: 500;
+            padding: 8px 14px;
+            border-radius: 12px;
+            transition: background 0.2s ease, color 0.2s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a:focus-visible {
+            color: var(--color-primary);
+            background: rgba(0, 120, 212, 0.12);
+        }
+
+        .hero {
+            margin-top: 64px;
+            padding: 48px;
+            background: linear-gradient(135deg, rgba(0, 31, 63, 0.94), rgba(0, 120, 212, 0.92));
+            color: #ffffff;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-soft);
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.2rem, 5vw, 3.2rem);
+            margin-bottom: 16px;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.86);
+            max-width: 720px;
+            margin: 0 auto 20px;
+        }
+
+        .stage-overview {
+            margin-top: 48px;
+            background: #ffffff;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-soft);
+            padding: 32px;
+        }
+
+        .stage-overview h2 {
+            text-align: center;
+            color: var(--color-deep-navy);
+            font-size: clamp(2rem, 4vw, 2.4rem);
+            margin-bottom: 16px;
+        }
+
+        .stage-overview p {
+            text-align: center;
+            color: var(--color-text-muted);
+            max-width: 720px;
+            margin: 0 auto 24px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            overflow: hidden;
+            border-radius: var(--radius-md);
+            border: 1px solid rgba(0, 31, 63, 0.08);
+        }
+
+        thead {
+            background: linear-gradient(135deg, rgba(0, 120, 212, 0.16), rgba(0, 31, 63, 0.12));
+            color: var(--color-deep-navy);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            font-size: 0.9rem;
+        }
+
+        th, td {
+            padding: 18px 20px;
+            vertical-align: top;
+            border-bottom: 1px solid rgba(0, 31, 63, 0.08);
+        }
+
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        tbody tr:nth-child(even) {
+            background: rgba(0, 120, 212, 0.04);
+        }
+
+        tbody tr:hover {
+            background: rgba(0, 120, 212, 0.08);
+        }
+
+        .stage-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            border-radius: 10px;
+            background: rgba(0, 120, 212, 0.1);
+            color: var(--color-primary-dark);
+            font-weight: 600;
+            text-decoration: none;
+            transition: transform 0.2s ease, background 0.2s ease;
+        }
+
+        .stage-link:hover,
+        .stage-link:focus-visible {
+            background: rgba(0, 120, 212, 0.18);
+            transform: translateY(-1px);
+        }
+
+        .stage-label {
+            font-weight: 650;
+            color: var(--color-primary-dark);
+        }
+
+        .stage-title {
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--color-deep-navy);
+            margin-bottom: 6px;
+        }
+
+        .stage-emoji {
+            font-size: 1.1rem;
+            margin-right: 6px;
+        }
+
+        .cta {
+            margin-top: 48px;
+            padding: 40px;
+            background: linear-gradient(135deg, rgba(0, 120, 212, 0.88), rgba(0, 90, 158, 0.9));
+            border-radius: var(--radius-lg);
+            color: #ffffff;
+            text-align: center;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .cta p {
+            max-width: 620px;
+            margin: 10px auto 24px;
+            color: rgba(255, 255, 255, 0.87);
+            font-size: 1.05rem;
+        }
+
+        .cta a {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 24px;
+            border-radius: 999px;
+            background: #ffffff;
+            color: var(--color-deep-navy);
+            font-weight: 600;
+            text-decoration: none;
+            box-shadow: 0 16px 32px rgba(0, 0, 0, 0.16);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .cta a:hover,
+        .cta a:focus-visible {
+            transform: translateY(-2px);
+            box-shadow: 0 22px 38px rgba(0, 0, 0, 0.2);
+        }
+
+        footer {
+            margin-top: 64px;
+            text-align: center;
+            color: var(--color-text-muted);
+            font-size: 0.95rem;
+        }
+
+        footer a {
+            color: var(--color-primary-dark);
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        @media (max-width: 720px) {
+            .hero {
+                padding: 36px 28px;
+            }
+
+            .stage-overview {
+                padding: 24px;
+            }
+
+            table, thead, tbody, th, td, tr {
+                display: block;
+            }
+
+            thead {
+                display: none;
+            }
+
+            tbody tr {
+                border: 1px solid rgba(0, 31, 63, 0.08);
+                border-radius: var(--radius-md);
+                margin-bottom: 18px;
+                background: #ffffff;
+                box-shadow: var(--shadow-soft);
+                padding: 20px;
+            }
+
+            tbody tr:nth-child(even) {
+                background: #ffffff;
+            }
+
+            td {
+                border: none;
+                padding: 10px 0;
+            }
+
+            td[data-label]::before {
+                content: attr(data-label);
+                display: block;
+                font-size: 0.85rem;
+                text-transform: uppercase;
+                letter-spacing: 0.08em;
+                color: var(--color-text-muted);
+                margin-bottom: 4px;
+            }
+
+            .cta {
+                padding: 32px 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-shell">
+        <header>
+            <nav class="nav">
+                <a class="brand" href="index.html">
+                    <img src="./Images/JTC.jpeg" alt="JTC Logo">
+                    JTC AI Day – Project Runway ✈️
+                </a>
+                <div class="nav-links">
+                    <a href="index.html#mission-brief">Mission 📋</a>
+                    <a href="index.html#agent-features">Agent 🤖</a>
+                    <a href="stages.html">Stages 🛫</a>
+                </div>
+            </nav>
+        </header>
+
+        <section class="hero">
+            <h1>Mission Stages 🛫</h1>
+            <p>Plot each sortie that brings GroundCrew.AI to life. Inspired by the pacing of Copilot Studio Agent Academy, this curriculum-style view keeps your crew aligned from pre-flight checks to smooth landing.<sup><a href="https://microsoft.github.io/agent-academy/recruit/#who-this-is-for" target="_blank" rel="noopener" style="color: #ffdd8c;">1</a></sup></p>
+        </section>
+
+        <section class="stage-overview">
+            <h2>Curriculum Flight Plan</h2>
+            <p>Each stage is a focused mission. Complete them in order to ready GroundCrew.AI for Alex’s pre-boarding journey.</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th scope="col">Stage</th>
+                        <th scope="col">Call Sign</th>
+                        <th scope="col">Mission Briefing</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td data-label="Stage">
+                            <a class="stage-link" href="stage-1.html">🔐 Stage 1</a>
+                        </td>
+                        <td data-label="Call Sign">
+                            <div class="stage-title"><span class="stage-emoji">🔐</span>Sign In</div>
+                        </td>
+                        <td data-label="Mission Briefing">
+                            Sign in to your Microsoft tenant, confirm Copilot Studio access, and make sure the GroundCrew.AI workspace is ready for launch.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td data-label="Stage">
+                            <a class="stage-link" href="stage-2.html">🛠️ Stage 2</a>
+                        </td>
+                        <td data-label="Call Sign">
+                            <div class="stage-title"><span class="stage-emoji">🛠️</span>Build the Agent</div>
+                        </td>
+                        <td data-label="Mission Briefing">
+                            Create GroundCrew.AI, configure core settings, and upload the knowledge bases that power Alex’s pre-boarding answers.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td data-label="Stage"><span class="stage-label">Stage 3</span></td>
+                        <td data-label="Call Sign">
+                            <div class="stage-title"><span class="stage-emoji">🗄️</span>Set Up Dataverse Tables</div>
+                        </td>
+                        <td data-label="Mission Briefing">
+                            Configure the Dataverse tables GroundCrew.AI will use to store onboarding data and track Alex’s journey.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td data-label="Stage"><span class="stage-label">Stage 4</span></td>
+                        <td data-label="Call Sign">
+                            <div class="stage-title"><span class="stage-emoji">🛂</span>2FA Identity Clearance</div>
+                        </td>
+                        <td data-label="Mission Briefing">
+                            Build and integrate the verification flows that confirm Alex’s identity before day one:
+                            <ul style="margin-top:12px; padding-left:0; display:grid; gap:10px; list-style:none;">
+                                <li>
+                                    <a class="stage-link" href="stage-4-1.html">🔍 Step 4.1 · Build flow — Check if Email Exists</a>
+                                </li>
+                                <li>
+                                    <a class="stage-link" href="stage-4-2.html">🔐 Step 4.2 · Build flow — Generate OTP</a>
+                                </li>
+                                <li>
+                                    <a class="stage-link" href="stage-4-3.html">🧩 Step 4.3 · Integrate flows into the topic</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td data-label="Stage"><span class="stage-label">Stage 5</span></td>
+                        <td data-label="Call Sign">
+                            <div class="stage-title"><span class="stage-emoji">📸</span>Crew ID Setup</div>
+                        </td>
+                        <td data-label="Mission Briefing">
+                            Handle headshot collection and automation so badges are ready on arrival:
+                            <ul style="margin-top:12px; padding-left:0; display:grid; gap:10px; list-style:none;">
+                                <li>
+                                    <a class="stage-link" href="stage-5-1.html">📂 Step 5.1 · Create flow to upload headshot</a>
+                                </li>
+                                <li>
+                                    <a class="stage-link" href="stage-5-2.html">🧩 Step 5.2 · Integrate headshot flow with topic</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td data-label="Stage"><span class="stage-label">Stage 6</span></td>
+                        <td data-label="Call Sign">
+                            <div class="stage-title"><span class="stage-emoji">🧪</span>Mission Test</div>
+                        </td>
+                        <td data-label="Mission Briefing">
+                            Run through Alex’s journey end-to-end, validate every branch, and confirm GroundCrew.AI delivers a smooth landing.
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section class="cta">
+            <h2>Prep for Takeoff</h2>
+            <p>Ready to run the next sortie? Jump back to the home hangar, download the lab guide, or pair with your squad to keep momentum rolling.</p>
+            <a href="index.html#cta">🎯 Return to Mission Control</a>
+        </section>
+
+        <footer>
+            Built for JTC AI Day · Nov ’25 ✨ Powered by Microsoft Copilot Studio 🤖<br>
+            Hands-on Guide by Zafir — Solution Engineer, Microsoft 🚀
+        </footer>
+    </div>
+</body>
+</html>
+

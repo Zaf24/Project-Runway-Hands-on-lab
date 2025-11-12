@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Runway – Mission Smooth Landing</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <style>
+        :root {
+            --color-bg-main: #f3f2f1;
+            --color-primary: #0078d4;
+            --color-primary-dark: #005a9e;
+            --color-accent-orange: #ff8c00;
+            --color-deep-navy: #001f3f;
+            --color-text-main: #323130;
+            --color-text-muted: #605e5c;
+            --shadow-soft: 0 12px 28px rgba(0, 31, 63, 0.08);
+            --radius-lg: 24px;
+            --radius-md: 18px;
+            --radius-sm: 12px;
+            color-scheme: light;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: var(--color-bg-main);
+            font-family: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--color-text-main);
+            line-height: 1.7;
+            letter-spacing: 0.01em;
+        }
+
+        a {
+            color: inherit;
+        }
+
+        .page-shell {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px 96px;
+        }
+
+        .nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(12px);
+            background: rgba(243, 242, 241, 0.85);
+            border-bottom: 1px solid rgba(0, 31, 63, 0.08);
+        }
+
+        .nav-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 32px;
+            padding: 16px 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 600;
+            font-size: 1.2rem;
+            color: var(--color-deep-navy);
+            text-decoration: none;
+        }
+
+        .brand img {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 18px;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            font-weight: 500;
+            color: var(--color-text-muted);
+            padding: 8px 14px;
+            border-radius: var(--radius-sm);
+            transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+        }
+
+        .nav-link:hover,
+        .nav-link:focus-visible {
+            color: var(--color-primary);
+            background: rgba(0, 120, 212, 0.12);
+            transform: translateY(-1px);
+        }
+
+        section {
+            margin-top: 80px;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 4vw, 2.4rem);
+            font-weight: 650;
+            margin-bottom: 24px;
+            color: var(--color-deep-navy);
+            text-align: center;
+        }
+
+        .section-lead {
+            max-width: 720px;
+            margin: 0 auto 24px;
+            text-align: center;
+            color: var(--color-text-muted);
+            font-size: 1.05rem;
+        }
+
+        .hero {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 48px;
+            align-items: center;
+            margin-top: 48px;
+            padding: 48px;
+            background: linear-gradient(135deg, rgba(0, 31, 63, 0.95), rgba(0, 120, 212, 0.92));
+            border-radius: var(--radius-lg);
+            color: #ffffff;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .hero h1 {
+            font-size: clamp(2.4rem, 6vw, 3.5rem);
+            line-height: 1.1;
+            margin-bottom: 16px;
+        }
+
+        .hero p {
+            color: rgba(255, 255, 255, 0.85);
+            margin-bottom: 16px;
+            font-size: 1.1rem;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-top: 24px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 14px 22px;
+            border-radius: 999px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .btn-primary {
+            background: #ffffff;
+            color: var(--color-deep-navy);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.12);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .btn:hover,
+        .btn:focus-visible {
+            transform: translateY(-2px);
+            box-shadow: 0 16px 28px rgba(0, 0, 0, 0.16);
+        }
+
+        .hero-image {
+            position: relative;
+            display: grid;
+            justify-items: center;
+            gap: 16px;
+        }
+
+        .hero-image img {
+            width: min(320px, 90%);
+            aspect-ratio: 1;
+            object-fit: contain;
+            border-radius: var(--radius-lg);
+            background: rgba(255, 255, 255, 0.08);
+            padding: 18px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+        }
+
+        .hero-image span {
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: var(--radius-lg);
+            padding: 32px;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .card p + p {
+            margin-top: 16px;
+        }
+
+        .scenario {
+            display: grid;
+            gap: 24px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        }
+
+        .scenario-highlight {
+            background: linear-gradient(135deg, rgba(255, 140, 0, 0.1), rgba(0, 120, 212, 0.1));
+            border-left: 6px solid var(--color-accent-orange);
+            padding: 28px;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .feature-grid {
+            display: grid;
+            gap: 24px;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        }
+
+        .feature-card {
+            background: #ffffff;
+            border-radius: var(--radius-md);
+            padding: 24px;
+            border: 1px solid rgba(0, 31, 63, 0.08);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .feature-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+        }
+
+        .feature-card span {
+            display: block;
+            color: var(--color-text-muted);
+            font-weight: 500;
+            margin-bottom: 12px;
+        }
+
+        .timeline {
+            display: grid;
+            gap: 18px;
+        }
+
+        .timeline-item {
+            display: grid;
+            gap: 16px;
+            grid-template-columns: auto 1fr;
+            padding: 20px 24px;
+            border-radius: var(--radius-md);
+            border: 1px solid rgba(0, 120, 212, 0.18);
+            background: rgba(0, 120, 212, 0.04);
+        }
+
+        .timeline-marker {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: #ffffff;
+            border: 2px solid var(--color-primary);
+            color: var(--color-primary);
+            display: grid;
+            place-items: center;
+            font-weight: 700;
+        }
+
+        .logistics {
+            background: linear-gradient(135deg, rgba(0, 120, 212, 0.08), rgba(0, 31, 63, 0.05));
+            border-radius: var(--radius-lg);
+            padding: 32px;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .cta-section {
+            text-align: center;
+            padding: 48px;
+            background: linear-gradient(135deg, rgba(0, 120, 212, 0.9), rgba(0, 90, 158, 0.92));
+            border-radius: var(--radius-lg);
+            color: #ffffff;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .cta-section h2 {
+            font-size: clamp(2rem, 4vw, 2.6rem);
+            margin-bottom: 16px;
+        }
+
+        footer {
+            margin-top: 72px;
+            padding: 32px 0 16px;
+            text-align: center;
+            color: var(--color-text-muted);
+            font-size: 0.95rem;
+        }
+
+        footer a {
+            color: var(--color-primary-dark);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .nav-inner {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .nav-links {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .hero {
+                padding: 32px;
+            }
+
+            .hero-image img {
+                width: min(260px, 100%);
+            }
+
+            .cta-section {
+                padding: 36px 24px;
+            }
+        }
+
+        @media (max-width: 520px) {
+            .nav-links {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 8px;
+            }
+
+            .hero {
+                padding: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script crossorigin src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <script type="text/babel">
+        const sections = {
+            mission: "mission-brief",
+            agent: "agent-features"
+        };
+
+        const Navbar = () => (
+            <header className="nav">
+                <div className="nav-inner">
+                    <a className="brand" href="#top">
+                        <img src="./Images/JTC.jpeg" alt="JTC Logo" />
+                        JTC AI Day – Project Runway ✈️
+                    </a>
+                    <nav className="nav-links">
+                        <a className="nav-link" href={`#${sections.mission}`}>Mission 📋</a>
+                        <a className="nav-link" href={`#${sections.agent}`}>Agent 🤖</a>
+                        <a className="nav-link" href="stages.html">Stages 🛫</a>
+                    </nav>
+                </div>
+            </header>
+        );
+
+        const HeroSection = () => (
+            <section id="top" className="hero">
+                <div>
+                    <h1>✈️ Project Runway – Mission Smooth Landing</h1>
+                    <p>Build GroundCrew.AI, the pre-boarding Copilot that locks in email access ✅, gathers headshots 📸, and answers HR questions 💬 before Day 1.</p>
+                    <p>You’re Runway Control. Map the flow, wire the automations, and give every new hire a confident touchdown.</p>
+                    <div className="hero-actions">
+                        <a className="btn btn-primary" href="stages.html">🚀 Begin Mission</a>
+                        <a className="btn btn-secondary" href="stages.html">🧭 View Mission Stages</a>
+                    </div>
+                </div>
+                <figure className="hero-image">
+                    <img src="./Images/Microsoft-Copilot-Studio-Icon-2024.png.webp" alt="GroundCrew.AI Illustration" />
+                    <span>🤝 GroundCrew.AI — Your pre-boarding copilot</span>
+                </figure>
+            </section>
+        );
+
+        const MissionBriefSection = () => (
+            <section id="mission-brief">
+                <div className="card">
+                    <h2 className="section-title">Mission Briefing</h2>
+                    <p>Day-1 onboarding is too late. Emails hide, approvals lag, and the welcome feels rushed.</p>
+                    <p>Project Runway flips the script with GroundCrew.AI — a Copilot Studio agent that handles the pre-work: verify the inbox, capture the headshot, and field FAQs before the plane even taxis.</p>
+                    <p>By touchdown, the crew is calm, the hire is confident, and your runway is clear.</p>
+                </div>
+            </section>
+        );
+
+        const ScenarioSection = () => (
+            <section id="scenario">
+                <h2 className="section-title">Meet Alex – Our New Hire on Final Approach</h2>
+                <div className="scenario">
+                    <div className="card" style={{ display: "grid", gap: "12px" }}>
+                        <p>👋 Meet Alex — offer signed, two weeks out, still waiting for the next signal.</p>
+                        <ul style={{ listStyle: "none", paddingLeft: 0, display: "grid", gap: "8px", color: "var(--color-text-muted)" }}>
+                            <li>📭 Inbox silent. Did the company email even activate?</li>
+                            <li>🧳 No prep list. What to bring? When to show up?</li>
+                            <li>🤔 Questions pile up while HR and managers scramble.</li>
+                        </ul>
+                        <p><strong>GroundCrew.AI becomes Alex’s single runway — verify access, set identity, get answers long before wheels down.</strong></p>
+                    </div>
+                    <aside className="scenario-highlight">
+                        <h3 style={{ color: "var(--color-deep-navy)", marginBottom: "12px", textAlign: "center" }}>Where the Process Breaks ⚠️</h3>
+                        <ul style={{ listStyle: "none", paddingLeft: 0, display: "grid", gap: "10px", color: "var(--color-text-muted)" }}>
+                            <li>🧾 Tasks scattered across email, spreadsheets, and sticky notes.</li>
+                            <li>🛰️ No shared view of the pre-Day 1 expectations.</li>
+                            <li>🔁 HR repeats the same answers every intake cycle.</li>
+                        </ul>
+                    </aside>
+                </div>
+            </section>
+        );
+
+        const AgentFeaturesSection = () => (
+            <section id="agent-features">
+                <h2 className="section-title">Meet GroundCrew.AI – Your Pre-Boarding Copilot</h2>
+                <p className="section-lead">GroundCrew.AI is the digital ground crew guiding every new hire through pre-flight checks while giving HR one playbook to trust.</p>
+                <div className="feature-grid">
+                    <div className="feature-card">
+                        <h3>🛬 Identity Clearance</h3>
+                        <span>Verify the new hire’s email before they land</span>
+                        <p>Ping the inbox, confirm access, and unlock the rest of the mission with confidence.</p>
+                    </div>
+                    <div className="feature-card">
+                        <h3>📸 Crew ID Setup</h3>
+                        <span>Collect a professional headshot in minutes</span>
+                        <p>Capture the badge photo inside the chat — no more attachment hunts or manual resizing.</p>
+                    </div>
+                    <div className="feature-card">
+                        <h3>🗨️ Tower Comms</h3>
+                        <span>Answer HR and company questions 24/7</span>
+                        <p>From dress code to remote policy, GroundCrew.AI pulls trusted answers on demand and keeps the tone human.</p>
+                    </div>
+                </div>
+            </section>
+        );
+
+        const WorkshopLogisticsSection = () => (
+            <section id="workshop-logistics">
+                <div className="logistics">
+                    <h2 className="section-title">Who This Mission Is For</h2>
+                    <p className="section-lead">Crew up with peers who are ready to turn pre-boarding chaos into calm.</p>
+                    <ul style={{ marginTop: "18px", listStyle: "none", paddingLeft: 0, display: "grid", gap: "10px", color: "var(--color-text-muted)", textAlign: "center" }}>
+                        <li>🤝 HR & People Experience teams modernizing welcomes.</li>
+                        <li>🛠️ IT & Digital Workplace squads extending Copilot Studio.</li>
+                        <li>💡 Makers and hackers who learn fastest by shipping real solutions.</li>
+                    </ul>
+                    <p style={{ marginTop: "18px", color: "var(--color-text-muted)", textAlign: "center" }}>
+                        No deep dev creds required — we guide you from first intent to full pre-boarding flow.
+                    </p>
+                </div>
+            </section>
+        );
+
+        const CallToActionSection = () => (
+            <section id="cta" className="cta-section">
+                <h2>Ready to Clear the Runway? 🛬</h2>
+                <p style={{ maxWidth: "640px", margin: "0 auto 24px", color: "rgba(255,255,255,0.85)", fontSize: "1.1rem" }}>
+                    Every great journey starts with a smooth landing. Rally your crew, spin up GroundCrew.AI, and let Alex touch down confident, connected, and ready.
+                </p>
+                <div className="hero-actions" style={{ justifyContent: "center" }}>
+                    <a className="btn btn-primary" href="stages.html">🛠️ Start Mission 1 – Pre-Flight Checks</a>
+                    <a className="btn btn-secondary" href="https://microsoft.github.io/agent-academy/" target="_blank" rel="noopener">💡 Inspired by Copilot Studio</a>
+                </div>
+            </section>
+        );
+
+        const Footer = () => (
+            <footer>
+                Built for JTC AI Day · Nov ’25 ✨ Powered by Microsoft Copilot Studio 🤖<br />
+                Hands-on Guide by Zafir — Solution Engineer, Microsoft 🚀
+            </footer>
+        );
+
+        const App = () => (
+            <div className="page-shell">
+                <Navbar />
+                <HeroSection />
+                <MissionBriefSection />
+                <ScenarioSection />
+                <AgentFeaturesSection />
+                <WorkshopLogisticsSection />
+                <CallToActionSection />
+                <Footer />
+            </div>
+        );
+
+        ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+    </script>
+</body>
+</html>
+
