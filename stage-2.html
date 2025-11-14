@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stage 2 · Build the Agent | GroundCrew.AI Mission Guide</title>
+    <title>Stage 2 · Set Up Dataverse Tables | GroundCrew.AI Mission Guide</title>
     <style>
         :root {
             --color-bg-main: #f3f2f1;
@@ -203,6 +203,44 @@
             font-size: 0.98rem;
         }
 
+        .warning {
+            background: rgba(255, 140, 0, 0.1);
+            border-left: 4px solid var(--color-accent-orange);
+            border-radius: var(--radius-md);
+            padding: 18px 20px;
+            color: var(--color-text-main);
+            font-size: 0.98rem;
+            font-weight: 500;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+            background: #ffffff;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 31, 63, 0.08);
+        }
+
+        table th,
+        table td {
+            padding: 12px 16px;
+            text-align: left;
+            border-bottom: 1px solid rgba(0, 31, 63, 0.08);
+        }
+
+        table th {
+            background: rgba(0, 120, 212, 0.1);
+            color: var(--color-deep-navy);
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        table tr:last-child td {
+            border-bottom: none;
+        }
+
         .cta-panel {
             display: flex;
             flex-wrap: wrap;
@@ -266,6 +304,15 @@
             .step-card {
                 padding: 24px 20px;
             }
+
+            table {
+                font-size: 0.9rem;
+            }
+
+            table th,
+            table td {
+                padding: 8px 12px;
+            }
         }
     </style>
 </head>
@@ -286,88 +333,173 @@
         </header>
 
         <section class="hero">
-            <h1>Stage 2 · Build the Agent 🛠️</h1>
-            <p>Spin up GroundCrew.AI inside Copilot Studio, seed it with knowledge, and prep the conversational brain that will greet Alex before Day 1.</p>
+            <h1>Stage 2 · Set Up Dataverse Tables 🗄️</h1>
+            <p>Configure the Dataverse tables GroundCrew.AI will use to store onboarding data and track Alex's journey.</p>
         </section>
 
         <section class="stage-body">
             <div class="stage-section">
                 <h2>Mission Checklist</h2>
-                <p>Create the agent, describe its mission, connect SharePoint knowledge, and test that it can answer onboarding questions with confidence.</p>
+                <p>Create the UserVerification table in Power Apps with the columns needed to track email verification, headshot status, and OTP codes for Alex's pre-boarding journey.</p>
             </div>
 
             <article class="step-card">
                 <div class="step-header">
-                    <div class="step-title">Launch a New Agent</div>
+                    <div class="step-title">Access Power Apps</div>
                     <span class="step-number">1</span>
                 </div>
                 <p class="step-text">
-                    In Microsoft Copilot Studio, select <strong>Create &gt; New agent</strong> from the left-hand taskbar. This opens the agent creation flow.
+                    Go to <a href="https://make.powerapps.com" target="_blank" rel="noopener" style="color: var(--color-primary); font-weight: 600;">https://make.powerapps.com</a>.
+                </p>
+                <p class="step-text">
+                    Sign in with your demo credentials. You should be brought to the page shown below.
                 </p>
                 <figure>
-                    <img src="./Images/Stage 2 Step 1.png" alt="Copilot Studio showing the Create new agent button">
-                    <figcaption>Start the build by choosing to create a new agent.</figcaption>
+                    <img src="./Images/Stage 2-Step 2.png" alt="Power Apps home page after signing in">
+                    <figcaption>Power Apps home page ready for table creation.</figcaption>
                 </figure>
             </article>
 
             <article class="step-card">
                 <div class="step-header">
-                    <div class="step-title">Describe GroundCrew.AI</div>
+                    <div class="step-title">Verify Environment</div>
                     <span class="step-number">2</span>
                 </div>
-                <p class="step-text">
-                    On the <strong>Describe</strong> tab, paste this mission prompt so Copilot seeds the right structure:
-                </p>
-                <div class="tip">
-                    “I want to create a pre-onboarding agent that would assist a new hire with activities such as email verification and headshot uploading. The agent should also be able to answer any HR or pre-onboarding questions from the knowledge base.”
+                <div class="warning">
+                    ⚠️ Important: Ensure you are in the right environment. Check the top right — you should be in <strong>Contoso (Default)</strong>.
                 </div>
                 <p class="step-text">
-                    Copilot drafts the basic agent design. Accept the suggested name or supply your own call sign for GroundCrew.AI, then hit <strong>Create</strong>.
+                    If you're not in the correct environment, select it from the environment dropdown in the top right corner. You might be prompted to create a new developer environment — if so, click OK and take note of the environment name on the top right after your page refreshes.
                 </p>
-                <figure>
-                    <img src="./Images/Stage 2 Step 2.png" alt="Agent creation page with description prompt filled in">
-                    <figcaption>Let Copilot bootstrap the agent with your pre-boarding prompt.</figcaption>
-                </figure>
             </article>
 
             <article class="step-card">
                 <div class="step-header">
-                    <div class="step-title">Add SharePoint Knowledge</div>
+                    <div class="step-title">Create New Table</div>
                     <span class="step-number">3</span>
                 </div>
                 <p class="step-text">
-                    Use the top navigation to open <strong>Knowledge</strong>, then choose <strong>Add knowledge</strong>. Select <strong>SharePoint</strong> as your source.
+                    On the left-hand side panel, select <strong>'Tables'</strong>, then click <strong>'New Table'</strong>.
                 </p>
+                <div class="warning">
+                    🚨 <strong>IMPORTANT:</strong> When you click "New Table", you might be prompted to create a new developer environment. <strong>Click OK</strong> to proceed. After the page refreshes, <strong>take note of the environment name</strong> displayed in the top right corner — this is the environment you'll be using in Stage 3 when building the agent in Copilot Studio. Make sure you're working in the same environment for both stages!
+                </div>
                 <figure>
-                    <img src="./Images/Stage 2 Step 6.png" alt="Knowledge tab showing add knowledge options">
-                    <figcaption>Choose SharePoint so GroundCrew.AI pulls answers from your curated resources.</figcaption>
+                    <img src="./Images/Stage 2-Step 5.png" alt="Power Apps Tables page showing New Table option">
+                    <figcaption>Navigate to Tables and create a new table.</figcaption>
                 </figure>
                 <p class="step-text">
-                    In the picker, browse to <strong>The Landing &gt; JTC AI Demo</strong>. Select all three files, confirm the selection, and add them to the agent.
+                    On the 'choose an option to create tables' page, choose to <strong>'Start from blank'</strong>.
+                </p>
+            </article>
+
+            <article class="step-card">
+                <div class="step-header">
+                    <div class="step-title">Configure Table Properties</div>
+                    <span class="step-number">4</span>
+                </div>
+                <p class="step-text">
+                    Click the tab on the top right of your <strong>'Table 1'</strong> block and click <strong>'View properties'</strong>.
+                </p>
+                <p class="step-text">
+                    Edit the <strong>Display name</strong> to <strong>"UserVerification"</strong>. The plural name should automatically be <strong>"UserVerifications"</strong>. Then click <strong>'Save'</strong>.
                 </p>
                 <figure>
-                    <img src="./Images/Stage 2 Step 8.png" alt="SharePoint folder selection highlighting The Landing and JTC AI Demo">
-                    <figcaption>Select all materials in the JTC AI Demo folder.</figcaption>
-                </figure>
-                <figure>
-                    <img src="./Images/Stage 2 Step 9.png" alt="Knowledge table showing uploaded SharePoint files">
-                    <figcaption>Success — the knowledge base is loaded and ready to answer questions.</figcaption>
+                    <img src="./Images/Stage 2-Step 7.png" alt="Table properties showing UserVerification display name">
+                    <figcaption>Set the table display name to UserVerification.</figcaption>
                 </figure>
             </article>
 
             <article class="step-card">
                 <div class="step-header">
-                    <div class="step-title">Test the Agent</div>
-                    <span class="step-number">4</span>
+                    <div class="step-title">Edit the First Column</div>
+                    <span class="step-number">5</span>
                 </div>
                 <p class="step-text">
-                    Open the test pane on the right and ask, “What are the onboarding processes I can expect?” or craft your own question. Confirm GroundCrew.AI responds with information from the new knowledge sources.
+                    On the table designer, click on <strong>'New column'</strong> and choose to edit column. We will edit the first column that is auto-created for us, then create the remaining columns.
+                </p>
+                <p class="step-text">
+                    Edit the first column with these details and click <strong>'Update'</strong>:
+                </p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Column Name</th>
+                            <th>Data Type</th>
+                            <th>Required</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Name</td>
+                            <td>Single line of text</td>
+                            <td>Yes</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </article>
+
+            <article class="step-card">
+                <div class="step-header">
+                    <div class="step-title">Add Remaining Columns</div>
+                    <span class="step-number">6</span>
+                </div>
+                <p class="step-text">
+                    Click <strong>'+ New column'</strong> and add 4 new columns with the following details:
+                </p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Column Name</th>
+                            <th>Data Type</th>
+                            <th>Required</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Email</td>
+                            <td>Single line of text</td>
+                            <td>Yes</td>
+                        </tr>
+                        <tr>
+                            <td>Verification Status</td>
+                            <td>Single line of text</td>
+                            <td>Off</td>
+                        </tr>
+                        <tr>
+                            <td>Headshot Status</td>
+                            <td>Single line of text</td>
+                            <td>Off</td>
+                        </tr>
+                        <tr>
+                            <td>OTP code</td>
+                            <td>Whole Number</td>
+                            <td>Off</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p class="step-text">
+                    Once you have all 5 columns, you may <strong>"Save and exit"</strong>.
+                </p>
+                <figure>
+                    <img src="./Images/Stage 2-Step 10.png" alt="Table designer showing all 5 columns configured">
+                    <figcaption>All columns are configured and ready to use.</figcaption>
+                </figure>
+            </article>
+
+            <article class="step-card">
+                <div class="step-header">
+                    <div class="step-title">Mission Complete</div>
+                    <span class="step-number">7</span>
+                </div>
+                <p class="step-text">
+                    Congratulations! You have created the table that is going to be used in building our agent and its flows!
                 </p>
                 <div class="tip">
-                    Try a mix of questions about schedules, dress code, and pre-boarding paperwork to ensure the agent uses the uploaded files correctly.
+                    This UserVerification table will store Alex's onboarding data, track verification status, headshot uploads, and OTP codes throughout the pre-boarding journey.
                 </div>
                 <p class="step-text">
-                    Once the responses look accurate and helpful, you’re clear to move to Stage 3 to set up the Dataverse tables that will store GroundCrew.AI signals.
+                    Once the table is saved, you're ready to move to Stage 3 to build the agent that will use this table.
                 </p>
             </article>
         </section>
@@ -375,14 +507,13 @@
         <div class="cta-panel">
             <a class="cta-button cta-secondary" href="stage-1.html">⬅️ Back to Stage 1</a>
             <a class="cta-button cta-secondary" href="stages.html">📋 Stages Overview</a>
-            <a class="cta-button cta-primary" href="stage-3.html">Next Stage · Set Up Dataverse Tables ➡️</a>
+            <a class="cta-button cta-primary" href="stage-3.html">Next Stage · Build the Agent ➡️</a>
         </div>
 
         <footer>
-            Built for JTC AI Day · Nov ’25 ✨ Powered by Microsoft Copilot Studio 🤖<br>
+            Built for JTC AI Day · Nov '25 ✨ Powered by Microsoft Copilot Studio 🤖<br>
             Hands-on Guide by Zafir — Solution Engineer, Microsoft 🚀
         </footer>
     </div>
 </body>
 </html>
-

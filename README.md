@@ -13,8 +13,8 @@ GroundCrew.AI is a hands-on hackathon experience that guides participants throug
 | `index.html` | Landing page introducing the mission, GroundCrew.AI vision, audience, and CTA to begin the workshop. |
 | `stages.html` | Curriculum-style overview of the flight plan with links to detailed stage guides. |
 | `stage-1.html` | Stage 1 guide (Sign In) – log into Copilot Studio with demo credentials. |
-| `stage-2.html` | Stage 2 guide (Build the Agent) – create the agent, upload knowledge bases, and validate responses. |
-| `stage-3.html` *(planned)* | Set up Dataverse tables used throughout the mission. |
+| `stage-2.html` | Stage 2 guide (Set Up Dataverse Tables) – configure Dataverse tables used throughout the mission. |
+| `stage-3.html` | Stage 3 guide (Build the Agent) – create the agent, upload knowledge bases, and validate responses. |
 | `stage-4-*.html` *(planned)* | 2FA Identity Clearance sub-steps: build email check flow, OTP flow, and integrate with the topic. |
 | `stage-5-*.html` *(planned)* | Crew ID Setup sub-steps: build headshot upload flow and integrate with the topic. |
 | `stage-6.html` *(planned)* | Mission Test – run the full Alex end-to-end simulation. |
