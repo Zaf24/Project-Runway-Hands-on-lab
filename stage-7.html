@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stage 7 · Mission Test | GroundCrew.AI Mission Guide</title>
+    <style>
+        :root {
+            --color-bg-main: #f3f2f1;
+            --color-primary: #0078d4;
+            --color-primary-dark: #005a9e;
+            --color-accent-orange: #ff8c00;
+            --color-deep-navy: #001f3f;
+            --color-text-main: #323130;
+            --color-text-muted: #605e5c;
+            --radius-lg: 24px;
+            --radius-md: 16px;
+            --shadow-soft: 0 18px 44px rgba(0, 31, 63, 0.12);
+            font-family: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--color-bg-main);
+            color: var(--color-text-main);
+            line-height: 1.7;
+            letter-spacing: 0.01em;
+            padding: 0 24px 96px;
+        }
+
+        .page-shell {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(243, 242, 241, 0.92);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(0, 31, 63, 0.08);
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+            padding: 16px 0;
+        }
+
+        .brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--color-deep-navy);
+            text-decoration: none;
+        }
+
+        .brand img {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+            border-radius: 10px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 14px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            font-weight: 500;
+            color: var(--color-text-muted);
+            padding: 8px 14px;
+            border-radius: 12px;
+            transition: background 0.2s ease, color 0.2s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a:focus-visible {
+            color: var(--color-primary);
+            background: rgba(0, 120, 212, 0.12);
+        }
+
+        .hero {
+            margin-top: 60px;
+            padding: 48px;
+            background: linear-gradient(135deg, rgba(0, 31, 63, 0.94), rgba(0, 120, 212, 0.92));
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-soft);
+            color: #ffffff;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.2rem, 5vw, 3.2rem);
+            margin-bottom: 16px;
+        }
+
+        .hero p {
+            max-width: 720px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.86);
+        }
+
+        .stage-body {
+            margin-top: 48px;
+            background: #ffffff;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-soft);
+            padding: 40px 44px;
+            display: grid;
+            gap: 36px;
+        }
+
+        .stage-section h2 {
+            font-size: clamp(1.8rem, 3vw, 2.2rem);
+            color: var(--color-deep-navy);
+            margin-bottom: 12px;
+        }
+
+        .stage-section p {
+            color: var(--color-text-muted);
+            font-size: 1.05rem;
+        }
+
+        .step-card {
+            background: rgba(0, 120, 212, 0.05);
+            border: 1px solid rgba(0, 31, 63, 0.08);
+            border-radius: var(--radius-md);
+            padding: 28px;
+            display: grid;
+            gap: 20px;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .step-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .step-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--color-deep-navy);
+        }
+
+        .step-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: rgba(0, 120, 212, 0.16);
+            color: var(--color-primary-dark);
+            font-weight: 700;
+        }
+
+        .step-text {
+            color: var(--color-text-main);
+            font-size: 1.05rem;
+        }
+
+        .tip {
+            background: rgba(0, 120, 212, 0.1);
+            border-left: 4px solid var(--color-primary);
+            border-radius: var(--radius-md);
+            padding: 18px 20px;
+            color: var(--color-text-muted);
+            font-size: 0.98rem;
+        }
+
+        .bonus-section {
+            background: linear-gradient(135deg, rgba(255, 140, 0, 0.08), rgba(255, 140, 0, 0.04));
+            border: 2px solid rgba(255, 140, 0, 0.2);
+            border-radius: var(--radius-md);
+            padding: 24px;
+            margin-top: 12px;
+        }
+
+        .bonus-section h4 {
+            color: var(--color-accent-orange);
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .test-questions {
+            background: rgba(0, 31, 63, 0.05);
+            border-left: 4px solid var(--color-primary);
+            border-radius: var(--radius-md);
+            padding: 18px 20px;
+            margin-top: 12px;
+        }
+
+        .test-questions h4 {
+            color: var(--color-deep-navy);
+            font-size: 1rem;
+            margin-bottom: 8px;
+        }
+
+        .test-questions ul {
+            margin-left: 20px;
+            margin-top: 8px;
+            color: var(--color-text-main);
+        }
+
+        .test-questions li {
+            margin-bottom: 6px;
+        }
+
+        .code-block {
+            background: rgba(0, 31, 63, 0.05);
+            border-left: 4px solid var(--color-primary);
+            border-radius: var(--radius-md);
+            padding: 18px 20px;
+            font-family: "Consolas", "Monaco", monospace;
+            font-size: 0.95rem;
+            color: var(--color-text-main);
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .cta-panel {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            justify-content: center;
+            margin-top: 12px;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 24px;
+            border-radius: 999px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .cta-primary {
+            background: linear-gradient(135deg, rgba(0, 120, 212, 0.92), rgba(0, 90, 158, 0.94));
+            color: #ffffff;
+            box-shadow: 0 16px 36px rgba(0, 120, 212, 0.32);
+        }
+
+        .cta-secondary {
+            background: #ffffff;
+            color: var(--color-primary-dark);
+            border: 1px solid rgba(0, 120, 212, 0.3);
+            box-shadow: 0 12px 28px rgba(0, 31, 63, 0.14);
+        }
+
+        .cta-button:hover,
+        .cta-button:focus-visible {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 44px rgba(0, 120, 212, 0.35);
+        }
+
+        footer {
+            margin-top: 72px;
+            text-align: center;
+            color: var(--color-text-muted);
+            font-size: 0.95rem;
+        }
+
+        footer a {
+            color: var(--color-primary-dark);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        @media (max-width: 720px) {
+            .hero {
+                padding: 36px 24px;
+            }
+
+            .stage-body {
+                padding: 32px 24px;
+            }
+
+            .step-card {
+                padding: 24px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-shell">
+        <header>
+            <nav class="nav">
+                <a class="brand" href="index.html">
+                    <img src="./Images/JTC.jpeg" alt="JTC Logo">
+                    JTC AI Day – Project Runway ✈️
+                </a>
+                <div class="nav-links">
+                    <a href="index.html#mission-brief">Mission 📋</a>
+                    <a href="index.html#agent-features">Agent 🤖</a>
+                    <a href="stages.html">Stages 🛫</a>
+                </div>
+            </nav>
+        </header>
+
+        <section class="hero">
+            <h1>Stage 7 · Mission Test 🧪</h1>
+            <p>Test your GroundCrew.AI agent end-to-end and validate all the capabilities you've built throughout this journey.</p>
+        </section>
+
+        <section class="stage-body">
+            <div class="stage-section">
+                <h2>Mission Checklist</h2>
+                <p>Follow these steps to thoroughly test your agent's capabilities. Start with general enquiries, then test the 2FA verification flow, and if you completed the bonus stage, test the headshot upload feature.</p>
+            </div>
+
+            <article class="step-card">
+                <div class="step-header">
+                    <div class="step-title">Access Your Agent</div>
+                    <span class="step-number">1</span>
+                </div>
+                <p class="step-text">
+                    In Copilot Studio, navigate to your agent and click <strong>"Test"</strong> in the top navigation bar. This will open the test chat interface where you can interact with your agent.
+                </p>
+                <div class="tip">
+                    💡 <strong>Tip:</strong> Make sure your agent is published before testing. If you haven't published yet, click <strong>"Publish"</strong> in the top right corner.
+                </div>
+            </article>
+
+            <article class="step-card">
+                <div class="step-header">
+                    <div class="step-title">Test General Enquiry Capabilities</div>
+                    <span class="step-number">2</span>
+                </div>
+                <p class="step-text">
+                    Start by testing the conversational boosting feature you set up in Stage 4. When the agent greets you, select <strong>"General Enquiry"</strong> from the options.
+                </p>
+                <div class="test-questions">
+                    <h4>Try asking questions like:</h4>
+                    <ul>
+                        <li>"What should I bring on my first day?"</li>
+                        <li>"What is the dress code?"</li>
+                        <li>"What are the working hours?"</li>
+                        <li>"Do you have remote work options?"</li>
+                        <li>"What benefits are available?"</li>
+                    </ul>
+                </div>
+                <p class="step-text">
+                    The agent should use the knowledge base you uploaded in Stage 3 to answer these questions. Verify that the responses are relevant and helpful.
+                </p>
+                <div class="tip">
+                    ✅ <strong>Check:</strong> The agent should provide answers based on the knowledge base content. If it doesn't have information, it should politely indicate that.
+                </div>
+            </article>
+
+            <article class="step-card">
+                <div class="step-header">
+                    <div class="step-title">Test 2FA Identity Verification</div>
+                    <span class="step-number">3</span>
+                </div>
+                <p class="step-text">
+                    Now test the 2FA identity verification flow you built in Stage 5. Start a new conversation or return to the conversation start, then select <strong>"Verify Email ID"</strong>.
+                </p>
+                <p class="step-text">
+                    <strong>Follow these steps:</strong>
+                </p>
+                <ol style="margin-left: 24px; margin-top: 12px; color: var(--color-text-main);">
+                    <li>The agent should display an adaptive card asking for your name and email address.</li>
+                    <li>Enter your name and an email address that you can access (use your own email for testing).</li>
+                    <li>Click <strong>"Generate OTP 🔐"</strong>.</li>
+                    <li>Check your email inbox for the OTP code.</li>
+                    <li>Enter the OTP code in the adaptive card that appears.</li>
+                    <li>Click <strong>"Verify OTP ✅"</strong>.</li>
+                </ol>
+                <div class="tip">
+                    ✅ <strong>Expected Result:</strong> If the OTP is correct, you should see a success message: "Your Email has been successfully verified!" and be returned to the conversation start. If incorrect, you should see "Verification failed" and be prompted to try again.
+                </div>
+                <div class="tip" style="background: rgba(255, 140, 0, 0.1); border-left-color: var(--color-accent-orange);">
+                    ⚠️ <strong>Note:</strong> Make sure you're using an email address that you can access. The OTP will be sent to the email you provide in the adaptive card.
+                </div>
+            </article>
+
+            <article class="step-card">
+                <div class="step-header">
+                    <div class="step-title">Test Headshot Upload (Bonus Feature)</div>
+                    <span class="step-number">4</span>
+                </div>
+                <p class="step-text">
+                    If you completed Stage 6 (Crew ID Setup), test the headshot upload functionality. This is an optional bonus feature, so skip this step if you didn't build it.
+                </p>
+                <div class="bonus-section">
+                    <h4>🎁 Bonus Feature Testing</h4>
+                    <p class="step-text" style="margin-top: 0;">
+                        To test the headshot upload:
+                    </p>
+                    <ol style="margin-left: 20px; margin-top: 12px; color: var(--color-text-main);">
+                        <li>Start a new conversation or return to the conversation start.</li>
+                        <li>Select <strong>"Upload headshot"</strong> from the options.</li>
+                        <li>The agent should prompt you to upload a file.</li>
+                        <li>Upload an image file (JPG, PNG, etc.) from your device.</li>
+                        <li>Wait for the confirmation message: "Your headshot has been successfully uploaded".</li>
+                        <li>Verify in Power Apps that the image was stored in the UserVerification table's Headshot column.</li>
+                    </ol>
+                    <div class="tip" style="margin-top: 12px; background: rgba(255, 140, 0, 0.1); border-left-color: var(--color-accent-orange);">
+                        ✅ <strong>Verification:</strong> Go to <a href="https://make.powerapps.com" target="_blank" rel="noopener" style="color: var(--color-accent-orange); font-weight: 600;">make.powerapps.com</a> and check your UserVerification table to confirm the headshot was uploaded correctly.
+                    </div>
+                </div>
+            </article>
+
+            <article class="step-card">
+                <div class="step-header">
+                    <div class="step-title">End-to-End Journey Test</div>
+                    <span class="step-number">5</span>
+                </div>
+                <p class="step-text">
+                    Now test the complete user journey as if you were Alex, the new hire:
+                </p>
+                <ol style="margin-left: 24px; margin-top: 12px; color: var(--color-text-main);">
+                    <li>Start a fresh conversation with the agent.</li>
+                    <li>Ask a general question about onboarding (e.g., "What should I bring on my first day?")</li>
+                    <li>Verify your email using the 2FA flow.</li>
+                    <li>If you built the bonus feature, upload your headshot.</li>
+                    <li>Ask another general question to confirm the agent remembers the context.</li>
+                </ol>
+                <div class="tip">
+                    🎯 <strong>Goal:</strong> This end-to-end test simulates a real new hire's experience. The agent should handle each interaction smoothly and guide the user through the pre-onboarding process.
+                </div>
+            </article>
+
+            <article class="step-card">
+                <div class="step-header">
+                    <div class="step-title">Verify Data in Dataverse</div>
+                    <span class="step-number">6</span>
+                </div>
+                <p class="step-text">
+                    Check that all the data is being stored correctly in your Dataverse table:
+                </p>
+                <ol style="margin-left: 24px; margin-top: 12px; color: var(--color-text-main);">
+                    <li>Go to <a href="https://make.powerapps.com" target="_blank" rel="noopener" style="color: var(--color-primary); font-weight: 600;">https://make.powerapps.com</a></li>
+                    <li>Navigate to your environment and open the <strong>UserVerification</strong> table.</li>
+                    <li>Verify that:
+                        <ul style="margin-left: 20px; margin-top: 8px;">
+                            <li>Your name and email are stored correctly</li>
+                            <li>The OTP code was generated and stored (if you tested 2FA)</li>
+                            <li>The headshot image is present (if you tested the bonus feature)</li>
+                        </ul>
+                    </li>
+                </ol>
+                <div class="tip">
+                    ✅ <strong>Success Criteria:</strong> All data from your test interactions should be visible in the Dataverse table, confirming that your flows are working correctly.
+                </div>
+            </article>
+
+            <article class="step-card">
+                <div class="step-header">
+                    <div class="step-title">Mission Complete</div>
+                    <span class="step-number">7</span>
+                </div>
+                <p class="step-text">
+                    Congratulations! 🎉 You've successfully tested all the capabilities of your GroundCrew.AI agent. Your agent is now ready to help new hires like Alex navigate their pre-onboarding journey.
+                </p>
+                <div class="tip" style="background: linear-gradient(135deg, rgba(0, 120, 212, 0.15), rgba(0, 90, 158, 0.12)); border-left-width: 6px;">
+                    🚀 <strong>What You've Built:</strong> A fully functional pre-boarding agent that can answer questions, verify identities, and collect headshots—all before Day 1. This creates a smooth, confident landing experience for every new hire.
+                </div>
+                <p class="step-text" style="margin-top: 16px;">
+                    If you encountered any issues during testing, review the relevant stages to troubleshoot. Otherwise, you're all set! Your GroundCrew.AI agent is ready for deployment.
+                </p>
+            </article>
+        </section>
+
+        <div class="cta-panel">
+            <a class="cta-button cta-secondary" href="stage-6-2.html">⬅️ Back to Stage 6</a>
+            <a class="cta-button cta-secondary" href="stage-5-3.html">⬅️ Back to Stage 5</a>
+            <a class="cta-button cta-secondary" href="stages.html">📋 Stages Overview</a>
+        </div>
+
+        <footer>
+            Built for JTC AI Day · Nov '25 ✨ Powered by Microsoft Copilot Studio 🤖<br>
+            Hands-on Guide by Zafir — Solution Engineer, Microsoft 🚀
+        </footer>
+    </div>
+</body>
+</html>
+

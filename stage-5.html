@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stage 5 · Crew ID Setup | GroundCrew.AI Mission Guide</title>
+    <title>Stage 5 · 2FA Identity Clearance | GroundCrew.AI Mission Guide</title>
     <style>
         :root {
             --color-bg-main: #f3f2f1;
@@ -135,6 +135,25 @@
             font-size: 1.05rem;
         }
 
+        .bonus-badge {
+            background: linear-gradient(135deg, rgba(255, 140, 0, 0.2), rgba(255, 140, 0, 0.1));
+            border: 2px solid var(--color-accent-orange);
+            border-radius: var(--radius-md);
+            padding: 24px;
+            margin-top: 24px;
+        }
+
+        .bonus-badge h3 {
+            color: var(--color-accent-orange);
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+        }
+
+        .bonus-badge p {
+            color: var(--color-text-main);
+            margin-bottom: 8px;
+        }
+
         .cta-panel {
             display: flex;
             flex-wrap: wrap;
@@ -214,18 +233,19 @@
         </header>
 
         <section class="hero">
-            <h1>Stage 5 · Crew ID Setup 📸</h1>
-            <p>Handle headshot collection and automation so badges are ready on arrival.</p>
+            <h1>Stage 5 · 2FA Identity Clearance 🛂</h1>
+            <p>Build and integrate the verification flows that confirm Alex's identity before day one.</p>
         </section>
 
         <section class="stage-body">
             <div class="stage-section">
                 <h2>Mission Overview</h2>
-                <p>In this stage, you'll build the flows and integrations needed to collect headshot images from users and store them in the Dataverse UserVerification table. This enables automated badge creation and ensures Alex's photo is ready before Day 1.</p>
-                <p style="margin-top: 16px;">This stage consists of two steps:</p>
+                <p>In this stage, you'll create verification flows that check if a user's email exists in the system and generate OTP (One-Time Password) codes for secure identity verification. This adds an extra layer of security to the pre-boarding process.</p>
+                <p style="margin-top: 12px;">This stage consists of three steps:</p>
                 <ul style="margin-left: 24px; margin-top: 12px; color: var(--color-text-main);">
-                    <li><strong>Step 5.1:</strong> Build flow — Upload headshot and update Dataverse</li>
-                    <li><strong>Step 5.2:</strong> Integrate headshot flow with topic</li>
+                    <li><strong>Step 5.1:</strong> Create topic</li>
+                    <li><strong>Step 5.2:</strong> Build flow — Generate OTP</li>
+                    <li><strong>Step 5.3:</strong> Integrate flows into the topic</li>
                 </ul>
             </div>
         </section>
@@ -233,7 +253,7 @@
         <div class="cta-panel">
             <a class="cta-button cta-secondary" href="stage-4.html">⬅️ Back to Stage 4</a>
             <a class="cta-button cta-secondary" href="stages.html">📋 Stages Overview</a>
-            <a class="cta-button cta-primary" href="stage-5-1.html">Next Step · Build Flow — Upload Headshot ➡️</a>
+            <a class="cta-button cta-primary" href="stage-5-1.html">Next Step · Create Topic ➡️</a>
         </div>
 
         <footer>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Step 5.1 · Build Flow — Upload Headshot and Update Dataverse | GroundCrew.AI Mission Guide</title>
+    <title>Step 5.1 · Create Topic | GroundCrew.AI Mission Guide</title>
     <style>
         :root {
             --color-bg-main: #f3f2f1;
@@ -203,26 +203,19 @@
             font-size: 0.98rem;
         }
 
-        .warning {
-            background: rgba(255, 140, 0, 0.1);
-            border-left: 4px solid var(--color-accent-orange);
-            border-radius: var(--radius-md);
-            padding: 18px 20px;
-            color: var(--color-text-main);
-            font-size: 0.98rem;
-            font-weight: 500;
-        }
-
         .code-block {
             background: rgba(0, 31, 63, 0.05);
             border-left: 4px solid var(--color-primary);
             border-radius: var(--radius-md);
             padding: 18px 20px;
             font-family: "Consolas", "Monaco", monospace;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             color: var(--color-text-main);
             white-space: pre-wrap;
             word-wrap: break-word;
+            overflow-x: auto;
+            max-height: 500px;
+            overflow-y: auto;
         }
 
         .cta-panel {
@@ -308,14 +301,14 @@
         </header>
 
         <section class="hero">
-            <h1>Step 5.1 · Build Flow — Upload Headshot 📂</h1>
-            <p>Create a Power Automate flow to upload headshot images to Dataverse and update the UserVerification table.</p>
+            <h1>Step 5.1 · Create Topic 📝</h1>
+            <p>Create a new topic with an adaptive card to collect user email and name for identity verification.</p>
         </section>
 
         <section class="stage-body">
             <div class="stage-section">
                 <h2>Mission Checklist</h2>
-                <p>Create a new topic for headshot upload, build a Power Automate flow that connects to Dataverse, and configure it to store uploaded images in the UserVerification table.</p>
+                <p>Create a new topic from blank, add an adaptive card node to collect user information, and configure it to gather email and name for OTP verification.</p>
             </div>
 
             <article class="step-card">
@@ -324,217 +317,159 @@
                     <span class="step-number">1</span>
                 </div>
                 <p class="step-text">
-                    Go to <strong>"Custom"</strong> topics in the Topics section and choose <strong>"+ Add a topic"</strong>.
+                    On the <strong>"Topics"</strong> tab in your agent building page, create <strong>"+ Add a topic"</strong> under custom topics and choose <strong>"From blank"</strong>.
                 </p>
                 <figure>
-                    <img src="./Images/Stage 4.1 Step 1.png" alt="Custom topics section showing Add a topic option">
-                    <figcaption>Create a new custom topic for headshot upload.</figcaption>
+                    <img src="./Images/Stage 6.1 Step 1.png" alt="Custom topics section showing Add a topic option">
+                    <figcaption>Create a new custom topic from blank.</figcaption>
                 </figure>
             </article>
 
             <article class="step-card">
                 <div class="step-header">
-                    <div class="step-title">Start from Blank</div>
+                    <div class="step-title">Describe the Topic</div>
                     <span class="step-number">2</span>
                 </div>
                 <p class="step-text">
-                    Choose <strong>"Start from blank"</strong> option. Then describe the purpose of this topic in the <strong>"Describe"</strong> section of the trigger node. You may use your own description or copy and paste this description:
+                    In the topic builder, describe the topic as you wish, or use this description:
                 </p>
-                <div class="code-block">This topic allows users to upload their headshots into the portal</div>
+                <div class="code-block">This topic allows user to input their email and verify it using an auto generated OTP</div>
             </article>
 
             <article class="step-card">
                 <div class="step-header">
-                    <div class="step-title">Add Question Node</div>
+                    <div class="step-title">Add Adaptive Card Node</div>
                     <span class="step-number">3</span>
                 </div>
                 <p class="step-text">
-                    Click on the <strong>"+"</strong> icon below the trigger node and add a question node. Input this on the message section:
+                    Below the trigger node, add an <strong>"Ask with adaptive card"</strong> node.
                 </p>
-                <div class="code-block">Great! I will help you upload your headshot into the portal! This will kick-off your badge creation process for you to have a smooth landing on Day 1.</div>
-                <p class="step-text">
-                    Next, change the type to <strong>"File"</strong>. You may refer to the image below for better guidance.
-                </p>
-                <figure>
-                    <img src="./Images/Stage 4.1 Step 3.png" alt="Question node configured with File type">
-                    <figcaption>Configure the question node to accept file uploads.</figcaption>
-                </figure>
             </article>
 
             <article class="step-card">
                 <div class="step-header">
-                    <div class="step-title">Name the Topic</div>
+                    <div class="step-title">Edit Adaptive Card Properties</div>
                     <span class="step-number">4</span>
                 </div>
                 <p class="step-text">
-                    Go to the section that says <strong>"Untitled"</strong> on the top left and change the name to <strong>"Upload Headshot"</strong>, then click <strong>"Save"</strong>.
+                    Click on the three dots on the adaptive card node and click <strong>"Properties"</strong>, then select <strong>"Edit adaptive card"</strong>. You will be brought to this page.
                 </p>
+                <figure>
+                    <img src="./Images/Stage 6.1 step 4.png" alt="Adaptive card designer interface">
+                    <figcaption>Adaptive card designer interface for editing the card.</figcaption>
+                </figure>
             </article>
 
             <article class="step-card">
                 <div class="step-header">
-                    <div class="step-title">Navigate to Flows</div>
+                    <div class="step-title">Paste Adaptive Card Code</div>
                     <span class="step-number">5</span>
                 </div>
                 <p class="step-text">
-                    Now we will be creating the flow to allow the agent to upload the image into Dataverse. On the side taskbar, click <strong>"Flows"</strong> and you will be redirected to the flow creation page.
+                    On the adaptive card editor, paste this code:
                 </p>
+                <div class="code-block">{
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "type": "AdaptiveCard",
+  "version": "1.5",
+  "body": [
+    {
+      "type": "Container",
+      "style": "emphasis",
+      "bleed": true,
+      "items": [
+        {
+          "type": "TextBlock",
+          "text": "✨ Verify Your Identity",
+          "weight": "Bolder",
+          "size": "Large",
+          "color": "Accent",
+          "horizontalAlignment": "Center"
+        },
+        {
+          "type": "TextBlock",
+          "text": "Enter your details below to generate your OTP 🔐",
+          "wrap": true,
+          "spacing": "Small",
+          "horizontalAlignment": "Center"
+        }
+      ]
+    },
+    {
+      "type": "Container",
+      "style": "default",
+      "items": [
+        {
+          "type": "TextBlock",
+          "text": "👤 Full Name",
+          "weight": "Bolder",
+          "spacing": "Medium"
+        },
+        {
+          "type": "Input.Text",
+          "id": "username",
+          "placeholder": "Your full name"
+        },
+        {
+          "type": "TextBlock",
+          "text": "📧 Email Address",
+          "weight": "Bolder",
+          "spacing": "Medium"
+        },
+        {
+          "type": "Input.Text",
+          "id": "useremail",
+          "placeholder": "example@company.com",
+          "style": "Email"
+        }
+      ],
+      "bleed": true
+    }
+  ],
+  "actions": [
+    {
+      "type": "Action.Submit",
+      "title": "Generate OTP 🔐",
+      "data": {
+        "action": "generateOtp"
+      }
+    }
+  ]
+}</div>
             </article>
 
             <article class="step-card">
                 <div class="step-header">
-                    <div class="step-title">Create New Agent Flow</div>
+                    <div class="step-title">Save and Verify Outputs</div>
                     <span class="step-number">6</span>
                 </div>
                 <p class="step-text">
-                    In the flow creation page, choose <strong>"+ New agent flow"</strong> and you will be brought to this page.
+                    Click <strong>"Save"</strong> and exit, and you should see a nice adaptive card with 4 outputs!
                 </p>
                 <figure>
-                    <img src="./Images/Stage 4.1 Step 6.png" alt="Flows section in Copilot Studio">
-                    <figcaption>Access the Flows section to create a new agent flow.</figcaption>
+                    <img src="./Images/Stage 6.1 step 6.png" alt="Adaptive card showing 4 outputs">
+                    <figcaption>Adaptive card configured with name and email inputs.</figcaption>
                 </figure>
             </article>
 
             <article class="step-card">
                 <div class="step-header">
-                    <div class="step-title">Configure Flow Trigger</div>
+                    <div class="step-title">Rename the Topic</div>
                     <span class="step-number">7</span>
                 </div>
                 <p class="step-text">
-                    Select <strong>"When an agent calls the flow"</strong>. Then click on <strong>"+ Add an input"</strong>. Choose <strong>"File"</strong> for input type and change the name from <strong>"File content"</strong> to <strong>"Headshot"</strong>.
-                </p>
-            </article>
-
-            <article class="step-card">
-                <div class="step-header">
-                    <div class="step-title">Add Dataverse Action</div>
-                    <span class="step-number">8</span>
-                </div>
-                <p class="step-text">
-                    Next, click on the <strong>"+"</strong> icon below the trigger node and then choose <strong>"Microsoft Dataverse"</strong>.
-                </p>
-                <figure>
-                    <img src="./Images/Stage 4.1 step 8.png" alt="New agent flow creation page">
-                    <figcaption>New agent flow creation page.</figcaption>
-                </figure>
-                <p class="step-text">
-                    After you have selected <strong>"Microsoft Dataverse"</strong>, select <strong>"Upload a file or image to a selected environment"</strong>. You will then see the node as shown below. You can give it any name (e.g., <strong>"Groundcrew"</strong>) and click <strong>"Sign in"</strong> to establish your connection.
-                </p>
-                <figure>
-                    <img src="./Images/Stage 4.1 step 9.png" alt="Flow trigger with File input configured">
-                    <figcaption>Configure the flow trigger with File input named Headshot.</figcaption>
-                </figure>
-            </article>
-
-            <article class="step-card">
-                <div class="step-header">
-                    <div class="step-title">Configure Dataverse Upload</div>
-                    <span class="step-number">9</span>
-                </div>
-                <p class="step-text">
-                    You will then see this node. You may select the environment from a dropdown function. <strong>Ensure to select the same environment as your agent and Dataverse table is in!</strong>
-                </p>
-                <div class="warning">
-                    ⚠️ Important: Make sure you're using the same environment where you created the UserVerification table in Stage 2.
-                </div>
-                <p class="step-text">
-                    <strong>Content Name:</strong> Headshot<br>
-                    <strong>Table name:</strong> Search for the <strong>"UserVerifications"</strong> table and select it.
-                </p>
-                <figure>
-                    <img src="./Images/Stage 4.1 step 10.png" alt="Dataverse upload configuration with environment and table selection">
-                    <figcaption>Configure the environment, content name, and table selection.</figcaption>
-                </figure>
-            </article>
-
-            <article class="step-card">
-                <div class="step-header">
-                    <div class="step-title">Retrieve Row ID from Power Apps</div>
-                    <span class="step-number">10</span>
-                </div>
-                <p class="step-text">
-                    We have to retrieve the RowID from the Power Apps Maker portal. So go to <a href="https://make.powerapps.com" target="_blank" rel="noopener" style="color: var(--color-primary); font-weight: 600;">https://make.powerapps.com</a> and view your UserVerifications table.
+                    Rename the topic to <strong>"Verify email"</strong> on the top left instead of "Untitled". Then click <strong>"Save"</strong>.
                 </p>
                 <p class="step-text">
-                    The GUID is the column named <strong>"UserVerification"</strong>. This is a unique ID created for that row. You can copy it and paste it onto the <strong>"Row ID"</strong> in the connector. Refer to the image below.
+                    Congratulations! You just created a topic with an adaptive card. Let's create a flow to generate the OTP next. Move to the next step whenever you are ready!
                 </p>
-                <figure>
-                    <img src="./Images/Stage 4.1 step 11.png" alt="Upload file or image action configured">
-                    <figcaption>Upload file or image action configured in Dataverse.</figcaption>
-                </figure>
-            </article>
-
-            <article class="step-card">
-                <div class="step-header">
-                    <div class="step-title">Configure Headshot Column</div>
-                    <span class="step-number">11</span>
-                </div>
-                <p class="step-text">
-                    Once you have entered the GUID, the column name <strong>"Headshot"</strong> should appear as a dropdown, select it. For the content, click on the <strong>"lightning"</strong> symbol and choose <strong>"Headshot contentBytes"</strong>.
-                </p>
-                <figure>
-                    <img src="./Images/Stage 4.1 step 12.png" alt="Headshot column and contentBytes selection">
-                    <figcaption>Select the Headshot column and Headshot contentBytes for the content.</figcaption>
-                </figure>
-            </article>
-
-            <article class="step-card">
-                <div class="step-header">
-                    <div class="step-title">Add Response to Agent</div>
-                    <span class="step-number">12</span>
-                </div>
-                <p class="step-text">
-                    Click on the <strong>"+"</strong> button below the Dataverse node and choose <strong>"Respond to agent"</strong> and click <strong>"+ Add an output"</strong> and choose <strong>"Text"</strong>. Name it <strong>"Uploaded"</strong> and type in a message. You may use:
-                </p>
-                <div class="code-block">Your headshot has been successfully uploaded</div>
-            </article>
-
-            <article class="step-card">
-                <div class="step-header">
-                    <div class="step-title">Review and Publish Flow</div>
-                    <span class="step-number">13</span>
-                </div>
-                <p class="step-text">
-                    Great work so far! Your flow should look something like the image below. Once you have checked it, click <strong>"Publish"</strong>.
-                </p>
-                <figure>
-                    <img src="./Images/Stage 4.1 step 14.png" alt="Complete flow showing all nodes">
-                    <figcaption>Review your complete flow before publishing.</figcaption>
-                </figure>
-            </article>
-
-            <article class="step-card">
-                <div class="step-header">
-                    <div class="step-title">Rename the Flow</div>
-                    <span class="step-number">14</span>
-                </div>
-                <p class="step-text">
-                    Once your flow has been published, go to the <strong>"Overview"</strong> tab and click <strong>"Edit"</strong> and change the name to <strong>"Upload Headshot"</strong>.
-                </p>
-                <figure>
-                    <img src="./Images/Stage 4.1 step 15.png" alt="Overview tab showing Edit button and flow name">
-                    <figcaption>Edit the flow name in the Overview tab.</figcaption>
-                </figure>
-            </article>
-
-            <article class="step-card">
-                <div class="step-header">
-                    <div class="step-title">Mission Complete</div>
-                    <span class="step-number">15</span>
-                </div>
-                <p class="step-text">
-                    Congratulations! You have finished building your first flow! Move on to the next step to integrate the flow into your topic!
-                </p>
-                <div class="tip">
-                    Your flow is now ready to upload headshot images to the Dataverse UserVerification table. The next step will show you how to connect this flow to the topic you created earlier.
-                </div>
             </article>
         </section>
 
         <div class="cta-panel">
             <a class="cta-button cta-secondary" href="stage-5.html">⬅️ Back to Stage 5</a>
             <a class="cta-button cta-secondary" href="stages.html">📋 Stages Overview</a>
-            <a class="cta-button cta-primary" href="stage-5-2.html">Next Step · Integrate Headshot Flow with Topic ➡️</a>
+            <a class="cta-button cta-primary" href="stage-5-2.html">Next Step · Build Flow — Generate OTP ➡️</a>
         </div>
 
         <footer>
