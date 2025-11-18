@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stage 5 · Crew ID Setup | GroundCrew.AI Mission Guide</title>
+    <style>
+        :root {
+            --color-bg-main: #f3f2f1;
+            --color-primary: #0078d4;
+            --color-primary-dark: #005a9e;
+            --color-accent-orange: #ff8c00;
+            --color-deep-navy: #001f3f;
+            --color-text-main: #323130;
+            --color-text-muted: #605e5c;
+            --radius-lg: 24px;
+            --radius-md: 16px;
+            --shadow-soft: 0 18px 44px rgba(0, 31, 63, 0.12);
+            font-family: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--color-bg-main);
+            color: var(--color-text-main);
+            line-height: 1.7;
+            letter-spacing: 0.01em;
+            padding: 0 24px 96px;
+        }
+
+        .page-shell {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(243, 242, 241, 0.92);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(0, 31, 63, 0.08);
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+            padding: 16px 0;
+        }
+
+        .brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--color-deep-navy);
+            text-decoration: none;
+        }
+
+        .brand img {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+            border-radius: 10px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 14px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            font-weight: 500;
+            color: var(--color-text-muted);
+            padding: 8px 14px;
+            border-radius: 12px;
+            transition: background 0.2s ease, color 0.2s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a:focus-visible {
+            color: var(--color-primary);
+            background: rgba(0, 120, 212, 0.12);
+        }
+
+        .hero {
+            margin-top: 60px;
+            padding: 48px;
+            background: linear-gradient(135deg, rgba(0, 31, 63, 0.94), rgba(0, 120, 212, 0.92));
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-soft);
+            color: #ffffff;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.2rem, 5vw, 3.2rem);
+            margin-bottom: 16px;
+        }
+
+        .hero p {
+            max-width: 720px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.86);
+        }
+
+        .stage-body {
+            margin-top: 48px;
+            background: #ffffff;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-soft);
+            padding: 40px 44px;
+            display: grid;
+            gap: 36px;
+        }
+
+        .stage-section h2 {
+            font-size: clamp(1.8rem, 3vw, 2.2rem);
+            color: var(--color-deep-navy);
+            margin-bottom: 12px;
+        }
+
+        .stage-section p {
+            color: var(--color-text-muted);
+            font-size: 1.05rem;
+        }
+
+        .cta-panel {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            justify-content: center;
+            margin-top: 12px;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 24px;
+            border-radius: 999px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .cta-primary {
+            background: linear-gradient(135deg, rgba(0, 120, 212, 0.92), rgba(0, 90, 158, 0.94));
+            color: #ffffff;
+            box-shadow: 0 16px 36px rgba(0, 120, 212, 0.32);
+        }
+
+        .cta-secondary {
+            background: #ffffff;
+            color: var(--color-primary-dark);
+            border: 1px solid rgba(0, 120, 212, 0.3);
+            box-shadow: 0 12px 28px rgba(0, 31, 63, 0.14);
+        }
+
+        .cta-button:hover,
+        .cta-button:focus-visible {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 44px rgba(0, 120, 212, 0.35);
+        }
+
+        footer {
+            margin-top: 72px;
+            text-align: center;
+            color: var(--color-text-muted);
+            font-size: 0.95rem;
+        }
+
+        footer a {
+            color: var(--color-primary-dark);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        @media (max-width: 720px) {
+            .hero {
+                padding: 36px 24px;
+            }
+
+            .stage-body {
+                padding: 32px 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-shell">
+        <header>
+            <nav class="nav">
+                <a class="brand" href="index.html">
+                    <img src="./Images/JTC.jpeg" alt="JTC Logo">
+                    JTC AI Day – Project Runway ✈️
+                </a>
+                <div class="nav-links">
+                    <a href="index.html#mission-brief">Mission 📋</a>
+                    <a href="index.html#agent-features">Agent 🤖</a>
+                    <a href="stages.html">Stages 🛫</a>
+                </div>
+            </nav>
+        </header>
+
+        <section class="hero">
+            <h1>Stage 5 · Crew ID Setup 📸</h1>
+            <p>Handle headshot collection and automation so badges are ready on arrival.</p>
+        </section>
+
+        <section class="stage-body">
+            <div class="stage-section">
+                <h2>Mission Overview</h2>
+                <p>In this stage, you'll build the flows and integrations needed to collect headshot images from users and store them in the Dataverse UserVerification table. This enables automated badge creation and ensures Alex's photo is ready before Day 1.</p>
+                <p style="margin-top: 16px;">This stage consists of two steps:</p>
+                <ul style="margin-left: 24px; margin-top: 12px; color: var(--color-text-main);">
+                    <li><strong>Step 5.1:</strong> Build flow — Upload headshot and update Dataverse</li>
+                    <li><strong>Step 5.2:</strong> Integrate headshot flow with topic</li>
+                </ul>
+            </div>
+        </section>
+
+        <div class="cta-panel">
+            <a class="cta-button cta-secondary" href="stage-4.html">⬅️ Back to Stage 4</a>
+            <a class="cta-button cta-secondary" href="stages.html">📋 Stages Overview</a>
+            <a class="cta-button cta-primary" href="stage-5-1.html">Next Step · Build Flow — Upload Headshot ➡️</a>
+        </div>
+
+        <footer>
+            Built for JTC AI Day · Nov '25 ✨ Powered by Microsoft Copilot Studio 🤖<br>
+            Hands-on Guide by Zafir — Solution Engineer, Microsoft 🚀
+        </footer>
+    </div>
+</body>
+</html>
+

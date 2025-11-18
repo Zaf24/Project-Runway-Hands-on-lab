@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stage 4 · Enabling General Enquiries | GroundCrew.AI Mission Guide</title>
+    <title>Step 6.1 · Create Topic | GroundCrew.AI Mission Guide</title>
     <style>
         :root {
             --color-bg-main: #f3f2f1;
@@ -209,10 +209,13 @@
             border-radius: var(--radius-md);
             padding: 18px 20px;
             font-family: "Consolas", "Monaco", monospace;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             color: var(--color-text-main);
             white-space: pre-wrap;
             word-wrap: break-word;
+            overflow-x: auto;
+            max-height: 500px;
+            overflow-y: auto;
         }
 
         .cta-panel {
@@ -298,125 +301,175 @@
         </header>
 
         <section class="hero">
-            <h1>Stage 4 · Enabling General Enquiries 💬</h1>
-            <p>Configure the conversation start topic with user options and set up conversational boosting to enable the agent to answer general pre-onboarding questions.</p>
+            <h1>Step 6.1 · Create Topic 📝</h1>
+            <p>Create a new topic with an adaptive card to collect user email and name for identity verification.</p>
         </section>
 
         <section class="stage-body">
             <div class="stage-section">
                 <h2>Mission Checklist</h2>
-                <p>Set up the conversation start topic with user options and configure the general enquiry flow using conversational boosting to answer questions from the knowledge base.</p>
+                <p>Create a new topic from blank, add an adaptive card node to collect user information, and configure it to gather email and name for OTP verification.</p>
             </div>
 
             <article class="step-card">
                 <div class="step-header">
-                    <div class="step-title">Navigate to Topics</div>
+                    <div class="step-title">Create New Topic</div>
                     <span class="step-number">1</span>
                 </div>
                 <p class="step-text">
-                    In Copilot Studio, go to <strong>"Topics"</strong> on the navigation bar.
+                    On the <strong>"Topics"</strong> tab in your agent building page, create <strong>"+ Add a topic"</strong> under custom topics and choose <strong>"From blank"</strong>.
                 </p>
+                <figure>
+                    <img src="./Images/Stage 6.1 Step 1.png" alt="Custom topics section showing Add a topic option">
+                    <figcaption>Create a new custom topic from blank.</figcaption>
+                </figure>
             </article>
 
             <article class="step-card">
                 <div class="step-header">
-                    <div class="step-title">Configure Conversation Start</div>
+                    <div class="step-title">Describe the Topic</div>
                     <span class="step-number">2</span>
                 </div>
                 <p class="step-text">
-                    Let us allow the agent to orchestrate the conversation from the get-go now. Start by clicking <strong>"System"</strong> in topics and select <strong>"Conversation start"</strong>.
+                    In the topic builder, describe the topic as you wish, or use this description:
                 </p>
-                <figure>
-                    <img src="./Images/Stage 4 step 2.png" alt="Copilot Studio Topics navigation">
-                    <figcaption>Access the Topics section to configure conversation flows.</figcaption>
-                </figure>
+                <div class="code-block">This topic allows user to input their email and verify it using an auto generated OTP</div>
             </article>
 
             <article class="step-card">
                 <div class="step-header">
-                    <div class="step-title">Delete Message and Add Ask a Question Node</div>
+                    <div class="step-title">Add Adaptive Card Node</div>
                     <span class="step-number">3</span>
                 </div>
                 <p class="step-text">
-                    Delete the <strong>"Message"</strong> node and add an <strong>"Ask a question"</strong> node.
+                    Below the trigger node, add an <strong>"Ask with adaptive card"</strong> node.
                 </p>
-                <figure>
-                    <img src="./Images/Stage 4 step 4.png" alt="System topics showing Conversation start option">
-                    <figcaption>Select Conversation start to configure the initial greeting.</figcaption>
-                </figure>
             </article>
 
             <article class="step-card">
                 <div class="step-header">
-                    <div class="step-title">Set Up Welcome Message</div>
+                    <div class="step-title">Edit Adaptive Card Properties</div>
                     <span class="step-number">4</span>
                 </div>
                 <p class="step-text">
-                    In the <strong>"Message"</strong> section, type out any welcome message you would like or just copy and paste this message:
+                    Click on the three dots on the adaptive card node and click <strong>"Properties"</strong>, then select <strong>"Edit adaptive card"</strong>. You will be brought to this page.
                 </p>
-                <div class="code-block">Hey! I am Groundcrew.AI, your personal pre-onboarding assistant, I can help you upload your headshots, verify your Email address and answer any pre-onboarding related questions. Let me know what you would like to do.</div>
+                <figure>
+                    <img src="./Images/Stage 6.1 step 4.png" alt="Adaptive card designer interface">
+                    <figcaption>Adaptive card designer interface for editing the card.</figcaption>
+                </figure>
             </article>
 
             <article class="step-card">
                 <div class="step-header">
-                    <div class="step-title">Add User Options</div>
+                    <div class="step-title">Paste Adaptive Card Code</div>
                     <span class="step-number">5</span>
                 </div>
                 <p class="step-text">
-                    Click <strong>"+ New option"</strong> under options for users and add 3 options:
+                    On the adaptive card editor, paste this code:
                 </p>
-                <ul style="margin-left: 24px; margin-top: 12px; color: var(--color-text-main);">
-                    <li><strong>Upload headshot</strong></li>
-                    <li><strong>Verify Email ID</strong></li>
-                    <li><strong>General Enquiry</strong></li>
-                </ul>
-                <p class="step-text">
-                    Copilot Studio would have added 4 "Condition" nodes automatically for you, as seen below. Let us configure just the "General Enquiry" one and leave the rest blank for now.
-                </p>
-                <figure>
-                    <img src="./Images/Stage 4 step 6.png" alt="Conversation flow showing condition nodes">
-                    <figcaption>Condition nodes are automatically created for each option.</figcaption>
-                </figure>
+                <div class="code-block">{
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "type": "AdaptiveCard",
+  "version": "1.5",
+  "body": [
+    {
+      "type": "Container",
+      "style": "emphasis",
+      "bleed": true,
+      "items": [
+        {
+          "type": "TextBlock",
+          "text": "✨ Verify Your Identity",
+          "weight": "Bolder",
+          "size": "Large",
+          "color": "Accent",
+          "horizontalAlignment": "Center"
+        },
+        {
+          "type": "TextBlock",
+          "text": "Enter your details below to generate your OTP 🔐",
+          "wrap": true,
+          "spacing": "Small",
+          "horizontalAlignment": "Center"
+        }
+      ]
+    },
+    {
+      "type": "Container",
+      "style": "default",
+      "items": [
+        {
+          "type": "TextBlock",
+          "text": "👤 Full Name",
+          "weight": "Bolder",
+          "spacing": "Medium"
+        },
+        {
+          "type": "Input.Text",
+          "id": "username",
+          "placeholder": "Your full name"
+        },
+        {
+          "type": "TextBlock",
+          "text": "📧 Email Address",
+          "weight": "Bolder",
+          "spacing": "Medium"
+        },
+        {
+          "type": "Input.Text",
+          "id": "useremail",
+          "placeholder": "example@company.com",
+          "style": "Email"
+        }
+      ],
+      "bleed": true
+    }
+  ],
+  "actions": [
+    {
+      "type": "Action.Submit",
+      "title": "Generate OTP 🔐",
+      "data": {
+        "action": "generateOtp"
+      }
+    }
+  ]
+}</div>
             </article>
 
             <article class="step-card">
                 <div class="step-header">
-                    <div class="step-title">Configure General Enquiry Flow</div>
+                    <div class="step-title">Save and Verify Outputs</div>
                     <span class="step-number">6</span>
                 </div>
                 <p class="step-text">
-                    Click the <strong>"+"</strong> sign below the <strong>"var1 is equal to General Enquiry"</strong> node and choose <strong>"Topic management"</strong>, then <strong>"Go to another topic"</strong>, then choose <strong>"Conversational boosting"</strong>.
+                    Click <strong>"Save"</strong> and exit, and you should see a nice adaptive card with 4 outputs!
                 </p>
                 <figure>
-                    <img src="./Images/Stage 4 Step 7.png" alt="Topic management showing Go to another topic and Conversational boosting">
-                    <figcaption>Configure the General Enquiry path to use conversational boosting.</figcaption>
+                    <img src="./Images/Stage 6.1 step 6.png" alt="Adaptive card showing 4 outputs">
+                    <figcaption>Adaptive card configured with name and email inputs.</figcaption>
                 </figure>
-                <p class="step-text">
-                    This allows the agent to use the "Conversational boosting" capability to use the generative AI capabilities and answer questions from users if they choose general enquiries.
-                </p>
             </article>
 
             <article class="step-card">
                 <div class="step-header">
-                    <div class="step-title">Mission Complete</div>
+                    <div class="step-title">Rename the Topic</div>
                     <span class="step-number">7</span>
                 </div>
                 <p class="step-text">
-                    Congratulations! You have finished configuring your first topic. You can test your agent's "General enquiry" capabilities.
+                    Rename the topic to <strong>"Verify email"</strong> on the top left instead of "Untitled". Then click <strong>"Save"</strong>.
                 </p>
-                <div class="tip">
-                    Try asking questions like "What should I bring on my first day?" or "What is the dress code?" to test the conversational boosting feature.
-                </div>
                 <p class="step-text">
-                    Your agent can now answer general pre-onboarding questions using the knowledge base you uploaded in Stage 3. Next, we will move to Stage 5 to set up headshot collection and automation.
+                    Congratulations! You just created a topic with an adaptive card. Let's create a flow to generate the OTP next. Move to the next step whenever you are ready!
                 </p>
             </article>
         </section>
 
         <div class="cta-panel">
-            <a class="cta-button cta-secondary" href="stage-3.html">⬅️ Back to Stage 3</a>
+            <a class="cta-button cta-secondary" href="stage-6.html">⬅️ Back to Stage 6</a>
             <a class="cta-button cta-secondary" href="stages.html">📋 Stages Overview</a>
-            <a class="cta-button cta-primary" href="stage-5.html">Next Stage · Crew ID Setup ➡️</a>
+            <a class="cta-button cta-primary" href="stage-6-2.html">Next Step · Build Flow — Generate OTP ➡️</a>
         </div>
 
         <footer>

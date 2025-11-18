@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stage 4 · Enabling General Enquiries | GroundCrew.AI Mission Guide</title>
+    <title>Step 6.2 · Build Flow — Generate OTP | GroundCrew.AI Mission Guide</title>
     <style>
         :root {
             --color-bg-main: #f3f2f1;
@@ -203,6 +203,16 @@
             font-size: 0.98rem;
         }
 
+        .warning {
+            background: rgba(255, 140, 0, 0.1);
+            border-left: 4px solid var(--color-accent-orange);
+            border-radius: var(--radius-md);
+            padding: 18px 20px;
+            color: var(--color-text-main);
+            font-size: 0.98rem;
+            font-weight: 500;
+        }
+
         .code-block {
             background: rgba(0, 31, 63, 0.05);
             border-left: 4px solid var(--color-primary);
@@ -298,125 +308,204 @@
         </header>
 
         <section class="hero">
-            <h1>Stage 4 · Enabling General Enquiries 💬</h1>
-            <p>Configure the conversation start topic with user options and set up conversational boosting to enable the agent to answer general pre-onboarding questions.</p>
+            <h1>Step 6.2 · Build Flow — Generate OTP 🔐</h1>
+            <p>Create a Power Automate flow that generates a random OTP code, updates the Dataverse table, and sends it via email to the user.</p>
         </section>
 
         <section class="stage-body">
             <div class="stage-section">
                 <h2>Mission Checklist</h2>
-                <p>Set up the conversation start topic with user options and configure the general enquiry flow using conversational boosting to answer questions from the knowledge base.</p>
+                <p>Build a flow that generates a random six-digit OTP code, stores it in the UserVerification table, and sends it to the user's email address for identity verification.</p>
             </div>
 
             <article class="step-card">
                 <div class="step-header">
-                    <div class="step-title">Navigate to Topics</div>
+                    <div class="step-title">Create New Agent Flow</div>
                     <span class="step-number">1</span>
                 </div>
                 <p class="step-text">
-                    In Copilot Studio, go to <strong>"Topics"</strong> on the navigation bar.
+                    On the left navigation pane, select <strong>"Flows"</strong> and click on <strong>"+ New agent flow"</strong>.
                 </p>
             </article>
 
             <article class="step-card">
                 <div class="step-header">
-                    <div class="step-title">Configure Conversation Start</div>
+                    <div class="step-title">Configure Flow Trigger and Inputs</div>
                     <span class="step-number">2</span>
                 </div>
                 <p class="step-text">
-                    Let us allow the agent to orchestrate the conversation from the get-go now. Start by clicking <strong>"System"</strong> in topics and select <strong>"Conversation start"</strong>.
+                    Choose <strong>"When an agent calls the flow"</strong> and add two inputs:
                 </p>
+                <ul style="margin-left: 24px; margin-top: 12px; color: var(--color-text-main);">
+                    <li>A <strong>text</strong> input named <strong>"Username"</strong></li>
+                    <li>Another <strong>text</strong> input named <strong>"UserEmail"</strong></li>
+                </ul>
                 <figure>
-                    <img src="./Images/Stage 4 step 2.png" alt="Copilot Studio Topics navigation">
-                    <figcaption>Access the Topics section to configure conversation flows.</figcaption>
+                    <img src="./Images/Stage 6.2 step 2.png" alt="Flow trigger with Username and UserEmail inputs">
+                    <figcaption>Configure the flow trigger with Username and UserEmail inputs.</figcaption>
                 </figure>
             </article>
 
             <article class="step-card">
                 <div class="step-header">
-                    <div class="step-title">Delete Message and Add Ask a Question Node</div>
+                    <div class="step-title">Initialize Variable for OTP Code</div>
                     <span class="step-number">3</span>
                 </div>
                 <p class="step-text">
-                    Delete the <strong>"Message"</strong> node and add an <strong>"Ask a question"</strong> node.
+                    Click the <strong>"+"</strong> button below the trigger and add a <strong>"Variable"</strong> &gt; <strong>"Initialize variable"</strong>.
                 </p>
                 <figure>
-                    <img src="./Images/Stage 4 step 4.png" alt="System topics showing Conversation start option">
-                    <figcaption>Select Conversation start to configure the initial greeting.</figcaption>
+                    <img src="./Images/Stage 6.2 step 3.png" alt="Initialize variable node">
+                    <figcaption>Add an initialize variable node to store the generated OTP.</figcaption>
                 </figure>
+                <p class="step-text">
+                    Configure the variable with the following:
+                </p>
+                <ul style="margin-left: 24px; margin-top: 12px; color: var(--color-text-main);">
+                    <li><strong>Name:</strong> GeneratedCode</li>
+                    <li><strong>Type:</strong> Integer</li>
+                    <li><strong>Value:</strong> Click the <strong>"fx"</strong> button and input this code: <code style="background: rgba(0, 31, 63, 0.05); padding: 2px 6px; border-radius: 4px; font-family: monospace;">rand(100000,999999)</code></li>
+                </ul>
             </article>
 
             <article class="step-card">
                 <div class="step-header">
-                    <div class="step-title">Set Up Welcome Message</div>
+                    <div class="step-title">Add Dataverse Update Action</div>
                     <span class="step-number">4</span>
                 </div>
                 <p class="step-text">
-                    In the <strong>"Message"</strong> section, type out any welcome message you would like or just copy and paste this message:
+                    Add another node below, choose <strong>"Microsoft Dataverse"</strong> and select <strong>"Update a row in selected environment"</strong>.
                 </p>
-                <div class="code-block">Hey! I am Groundcrew.AI, your personal pre-onboarding assistant, I can help you upload your headshots, verify your Email address and answer any pre-onboarding related questions. Let me know what you would like to do.</div>
+                <div class="tip">
+                    If it asks you to sign in to create a new connection, just give the connection any name such as <strong>"Groundcrew"</strong> and click <strong>"Sign in"</strong>.
+                </div>
+                <p class="step-text">
+                    You will then see this node.
+                </p>
+                <figure>
+                    <img src="./Images/Stage 6.2 step 5.png" alt="Update a row in selected environment node">
+                    <figcaption>Add the Dataverse update action to store the OTP code.</figcaption>
+                </figure>
             </article>
 
             <article class="step-card">
                 <div class="step-header">
-                    <div class="step-title">Add User Options</div>
+                    <div class="step-title">Configure Dataverse Update</div>
                     <span class="step-number">5</span>
                 </div>
                 <p class="step-text">
-                    Click <strong>"+ New option"</strong> under options for users and add 3 options:
+                    Configure the Dataverse node:
                 </p>
                 <ul style="margin-left: 24px; margin-top: 12px; color: var(--color-text-main);">
-                    <li><strong>Upload headshot</strong></li>
-                    <li><strong>Verify Email ID</strong></li>
-                    <li><strong>General Enquiry</strong></li>
+                    <li><strong>Environment:</strong> Use the dropdown panel and choose the same environment that your Dataverse table is stored in</li>
+                    <li><strong>Table Name:</strong> Search for the <strong>"UserVerification"</strong> table that you have created and select it</li>
                 </ul>
+                <div class="warning">
+                    ⚠️ Important: Make sure you're using the same environment where you created the UserVerification table in Stage 2.
+                </div>
+            </article>
+
+            <article class="step-card">
+                <div class="step-header">
+                    <div class="step-title">Retrieve Row ID from Power Apps</div>
+                    <span class="step-number">6</span>
+                </div>
                 <p class="step-text">
-                    Copilot Studio would have added 4 "Condition" nodes automatically for you, as seen below. Let us configure just the "General Enquiry" one and leave the rest blank for now.
+                    In order to retrieve your row ID, we will have to go to <a href="https://make.powerapps.com" target="_blank" rel="noopener" style="color: var(--color-primary); font-weight: 600;">https://make.powerapps.com</a> and view your UserVerifications table.
+                </p>
+                <p class="step-text">
+                    The GUID is the column named <strong>"UserVerification"</strong>. This is a unique ID created for that row. You can copy it and paste it onto the <strong>"Row ID"</strong> in the connector. Refer to the image below.
                 </p>
                 <figure>
-                    <img src="./Images/Stage 4 step 6.png" alt="Conversation flow showing condition nodes">
-                    <figcaption>Condition nodes are automatically created for each option.</figcaption>
+                    <img src="./Images/Stage 4.1 step 11.png" alt="Power Apps showing UserVerification table with GUID">
+                    <figcaption>Copy the GUID from the UserVerification column in Power Apps.</figcaption>
                 </figure>
             </article>
 
             <article class="step-card">
                 <div class="step-header">
-                    <div class="step-title">Configure General Enquiry Flow</div>
-                    <span class="step-number">6</span>
+                    <div class="step-title">Configure OTP Code Column</div>
+                    <span class="step-number">7</span>
                 </div>
                 <p class="step-text">
-                    Click the <strong>"+"</strong> sign below the <strong>"var1 is equal to General Enquiry"</strong> node and choose <strong>"Topic management"</strong>, then <strong>"Go to another topic"</strong>, then choose <strong>"Conversational boosting"</strong>.
+                    Once you have retrieved your row ID, paste it onto the <strong>"Row ID"</strong> column in your <strong>"Update row in selected environment"</strong> node, then click on <strong>"Advanced parameters"</strong> and select <strong>"OTP code"</strong>.
+                </p>
+                <p class="step-text">
+                    On the <strong>"OTP code"</strong> column, click the <strong>"lightning"</strong> symbol and input <strong>"GeneratedCode"</strong>.
                 </p>
                 <figure>
-                    <img src="./Images/Stage 4 Step 7.png" alt="Topic management showing Go to another topic and Conversational boosting">
-                    <figcaption>Configure the General Enquiry path to use conversational boosting.</figcaption>
+                    <img src="./Images/Stage 6.2 step 7.png" alt="OTP code column configured with GeneratedCode variable">
+                    <figcaption>Configure the OTP code column to use the GeneratedCode variable.</figcaption>
                 </figure>
+            </article>
+
+            <article class="step-card">
+                <div class="step-header">
+                    <div class="step-title">Add Send Email Action</div>
+                    <span class="step-number">8</span>
+                </div>
                 <p class="step-text">
-                    This allows the agent to use the "Conversational boosting" capability to use the generative AI capabilities and answer questions from users if they choose general enquiries.
+                    Below the Dataverse node, add another node. You should add a <strong>"Send an email"</strong> node. Sign in with your demo credentials if asked to sign in and allow access.
                 </p>
+                <p class="step-text">
+                    In the send an email node, configure as follows:
+                </p>
+                <ul style="margin-left: 24px; margin-top: 12px; color: var(--color-text-main);">
+                    <li><strong>To:</strong> Click on the setting buttons and choose <strong>"Use dynamic content"</strong>, then click the <strong>"lightning"</strong> symbol and select the <strong>"UserEmail"</strong> input that you created</li>
+                    <li><strong>Subject:</strong> Verification Code</li>
+                    <li><strong>Body:</strong> Your verification code is <em>[insert the generated code here]</em></li>
+                </ul>
+                <p class="step-text">
+                    The node should look like the image below.
+                </p>
+                <figure>
+                    <img src="./Images/Stage 6.2 step 8.png" alt="Send an email node configured with UserEmail and verification code">
+                    <figcaption>Configure the email to send the OTP code to the user.</figcaption>
+                </figure>
+            </article>
+
+            <article class="step-card">
+                <div class="step-header">
+                    <div class="step-title">Add Response to Agent</div>
+                    <span class="step-number">9</span>
+                </div>
+                <p class="step-text">
+                    Add the final action by clicking the <strong>"+"</strong> button and adding the <strong>"Respond to agent"</strong> node. Click on <strong>"+ Add an output"</strong> and name it <strong>"OTP code"</strong>. For its value, input <strong>"GeneratedCode"</strong>.
+                </p>
+            </article>
+
+            <article class="step-card">
+                <div class="step-header">
+                    <div class="step-title">Publish and Rename Flow</div>
+                    <span class="step-number">10</span>
+                </div>
+                <p class="step-text">
+                    Once done, click <strong>"Publish"</strong> and go to the <strong>"Overview"</strong> page. Click <strong>"Edit"</strong> and change the name of the flow from "Untitled" to <strong>"Generate OTP"</strong> and then save the flow.
+                </p>
+                <figure>
+                    <img src="./Images/Stage 6.2 step 10.png" alt="Flow overview page showing Generate OTP flow">
+                    <figcaption>Rename the flow to "Generate OTP" in the Overview page.</figcaption>
+                </figure>
             </article>
 
             <article class="step-card">
                 <div class="step-header">
                     <div class="step-title">Mission Complete</div>
-                    <span class="step-number">7</span>
+                    <span class="step-number">11</span>
                 </div>
                 <p class="step-text">
-                    Congratulations! You have finished configuring your first topic. You can test your agent's "General enquiry" capabilities.
+                    Congratulations! You just built a flow to generate a random six-digit number and send it as an email to the user. Next, we will integrate this flow with the topic!
                 </p>
                 <div class="tip">
-                    Try asking questions like "What should I bring on my first day?" or "What is the dress code?" to test the conversational boosting feature.
+                    Your flow generates a random OTP between 100000 and 999999, stores it in the Dataverse UserVerification table, and emails it to the user for verification.
                 </div>
-                <p class="step-text">
-                    Your agent can now answer general pre-onboarding questions using the knowledge base you uploaded in Stage 3. Next, we will move to Stage 5 to set up headshot collection and automation.
-                </p>
             </article>
         </section>
 
         <div class="cta-panel">
-            <a class="cta-button cta-secondary" href="stage-3.html">⬅️ Back to Stage 3</a>
+            <a class="cta-button cta-secondary" href="stage-6-1.html">⬅️ Back to Step 6.1</a>
             <a class="cta-button cta-secondary" href="stages.html">📋 Stages Overview</a>
-            <a class="cta-button cta-primary" href="stage-5.html">Next Stage · Crew ID Setup ➡️</a>
+            <a class="cta-button cta-primary" href="stage-6-3.html">Next Step · Integrate Flows into Topic ➡️</a>
         </div>
 
         <footer>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stage 4 · Enabling General Enquiries | GroundCrew.AI Mission Guide</title>
+    <title>Step 5.2 · Integrate Headshot Flow with Topic | GroundCrew.AI Mission Guide</title>
     <style>
         :root {
             --color-bg-main: #f3f2f1;
@@ -298,101 +298,98 @@
         </header>
 
         <section class="hero">
-            <h1>Stage 4 · Enabling General Enquiries 💬</h1>
-            <p>Configure the conversation start topic with user options and set up conversational boosting to enable the agent to answer general pre-onboarding questions.</p>
+            <h1>Step 5.2 · Integrate Headshot Flow with Topic 🧩</h1>
+            <p>Connect the Upload Headshot flow to the topic and complete the integration so users can upload their headshots through the conversation.</p>
         </section>
 
         <section class="stage-body">
             <div class="stage-section">
                 <h2>Mission Checklist</h2>
-                <p>Set up the conversation start topic with user options and configure the general enquiry flow using conversational boosting to answer questions from the knowledge base.</p>
+                <p>Integrate the flow you created in Step 5.1 with the Upload Headshot topic, configure the input formula, add response messages, and connect it to the conversation start options.</p>
             </div>
 
             <article class="step-card">
                 <div class="step-header">
-                    <div class="step-title">Navigate to Topics</div>
+                    <div class="step-title">Navigate to Upload Headshot Topic</div>
                     <span class="step-number">1</span>
                 </div>
                 <p class="step-text">
-                    In Copilot Studio, go to <strong>"Topics"</strong> on the navigation bar.
+                    Go back to the agent and go to your <strong>"Upload Headshot"</strong> topic.
                 </p>
             </article>
 
             <article class="step-card">
                 <div class="step-header">
-                    <div class="step-title">Configure Conversation Start</div>
+                    <div class="step-title">Add the Flow as a Tool</div>
                     <span class="step-number">2</span>
                 </div>
                 <p class="step-text">
-                    Let us allow the agent to orchestrate the conversation from the get-go now. Start by clicking <strong>"System"</strong> in topics and select <strong>"Conversation start"</strong>.
+                    Click the <strong>"+"</strong> button below the question node and select <strong>"Add a tool"</strong> &gt; <strong>"Upload Headshot"</strong> flow that you just created.
                 </p>
                 <figure>
-                    <img src="./Images/Stage 4 step 2.png" alt="Copilot Studio Topics navigation">
-                    <figcaption>Access the Topics section to configure conversation flows.</figcaption>
+                    <img src="./Images/Stage 4.2 step 2.png" alt="Add a tool showing Upload Headshot flow">
+                    <figcaption>Add the Upload Headshot flow as a tool to the topic.</figcaption>
                 </figure>
             </article>
 
             <article class="step-card">
                 <div class="step-header">
-                    <div class="step-title">Delete Message and Add Ask a Question Node</div>
+                    <div class="step-title">Configure the Input Formula</div>
                     <span class="step-number">3</span>
                 </div>
                 <p class="step-text">
-                    Delete the <strong>"Message"</strong> node and add an <strong>"Ask a question"</strong> node.
+                    In the input section, paste this formula:
                 </p>
-                <figure>
-                    <img src="./Images/Stage 4 step 4.png" alt="System topics showing Conversation start option">
-                    <figcaption>Select Conversation start to configure the initial greeting.</figcaption>
-                </figure>
+                <div class="code-block">{ contentBytes: First(System.Activity.Attachments).Content, name: First(System.Activity.Attachments).Name }</div>
+                <div class="tip">
+                    This formula extracts the file content and name from the attachment that the user uploaded through the question node.
+                </div>
             </article>
 
             <article class="step-card">
                 <div class="step-header">
-                    <div class="step-title">Set Up Welcome Message</div>
+                    <div class="step-title">Add Response Message</div>
                     <span class="step-number">4</span>
                 </div>
                 <p class="step-text">
-                    In the <strong>"Message"</strong> section, type out any welcome message you would like or just copy and paste this message:
+                    Click the <strong>"+"</strong> button below the <strong>"Action"</strong> node and add a <strong>"Message"</strong> node. Add the <strong>"Uploaded"</strong> variable to the message.
                 </p>
-                <div class="code-block">Hey! I am Groundcrew.AI, your personal pre-onboarding assistant, I can help you upload your headshots, verify your Email address and answer any pre-onboarding related questions. Let me know what you would like to do.</div>
+                <figure>
+                    <img src="./Images/Satge 4.2 step 4.png" alt="Message node showing Uploaded variable selection">
+                    <figcaption>Add the Uploaded variable to the message node.</figcaption>
+                </figure>
+                <p class="step-text">
+                    This will display the confirmation message from the flow (e.g., "Your headshot has been successfully uploaded") to the user.
+                </p>
             </article>
 
             <article class="step-card">
                 <div class="step-header">
-                    <div class="step-title">Add User Options</div>
+                    <div class="step-title">Add Conversation Start Node</div>
                     <span class="step-number">5</span>
                 </div>
                 <p class="step-text">
-                    Click <strong>"+ New option"</strong> under options for users and add 3 options:
+                    Add another node below the <strong>"Message"</strong> node: <strong>"Topic management"</strong> &gt; <strong>"Conversation Start"</strong> and click <strong>"Save"</strong>.
                 </p>
-                <ul style="margin-left: 24px; margin-top: 12px; color: var(--color-text-main);">
-                    <li><strong>Upload headshot</strong></li>
-                    <li><strong>Verify Email ID</strong></li>
-                    <li><strong>General Enquiry</strong></li>
-                </ul>
                 <p class="step-text">
-                    Copilot Studio would have added 4 "Condition" nodes automatically for you, as seen below. Let us configure just the "General Enquiry" one and leave the rest blank for now.
+                    This returns the user to the conversation start so they can choose another option or continue their journey.
                 </p>
-                <figure>
-                    <img src="./Images/Stage 4 step 6.png" alt="Conversation flow showing condition nodes">
-                    <figcaption>Condition nodes are automatically created for each option.</figcaption>
-                </figure>
             </article>
 
             <article class="step-card">
                 <div class="step-header">
-                    <div class="step-title">Configure General Enquiry Flow</div>
+                    <div class="step-title">Connect to Conversation Start</div>
                     <span class="step-number">6</span>
                 </div>
                 <p class="step-text">
-                    Click the <strong>"+"</strong> sign below the <strong>"var1 is equal to General Enquiry"</strong> node and choose <strong>"Topic management"</strong>, then <strong>"Go to another topic"</strong>, then choose <strong>"Conversational boosting"</strong>.
+                    Lastly, under the <strong>"Conversation Start"</strong> topic, go to the condition node that says <strong>"Var1 is equal to Upload Headshot"</strong> and add a node <strong>"Topic management"</strong> &gt; <strong>"Upload Headshot"</strong>.
                 </p>
                 <figure>
-                    <img src="./Images/Stage 4 Step 7.png" alt="Topic management showing Go to another topic and Conversational boosting">
-                    <figcaption>Configure the General Enquiry path to use conversational boosting.</figcaption>
+                    <img src="./Images/Stage 4.2 step 6.png" alt="Conversation Start topic showing condition node connected to Upload Headshot">
+                    <figcaption>Connect the Upload Headshot option to the topic in Conversation Start.</figcaption>
                 </figure>
                 <p class="step-text">
-                    This allows the agent to use the "Conversational boosting" capability to use the generative AI capabilities and answer questions from users if they choose general enquiries.
+                    Your end result should look like the image above.
                 </p>
             </article>
 
@@ -402,21 +399,21 @@
                     <span class="step-number">7</span>
                 </div>
                 <p class="step-text">
-                    Congratulations! You have finished configuring your first topic. You can test your agent's "General enquiry" capabilities.
+                    Congratulations! You have now created a bot that allows you to enquire about day 1 tasks and upload your headshot to the Dataverse table! Great going.
                 </p>
                 <div class="tip">
-                    Try asking questions like "What should I bring on my first day?" or "What is the dress code?" to test the conversational boosting feature.
+                    Your agent can now handle general enquiries through conversational boosting and accept headshot uploads that are stored in the Dataverse UserVerification table.
                 </div>
                 <p class="step-text">
-                    Your agent can now answer general pre-onboarding questions using the knowledge base you uploaded in Stage 3. Next, we will move to Stage 5 to set up headshot collection and automation.
+                    If you are comfortable, try out the bonus steps (Stage 5 - 2FA Identity Clearance), or move to testing your agent's current capabilities!
                 </p>
             </article>
         </section>
 
         <div class="cta-panel">
-            <a class="cta-button cta-secondary" href="stage-3.html">⬅️ Back to Stage 3</a>
+            <a class="cta-button cta-secondary" href="stage-5-1.html">⬅️ Back to Step 5.1</a>
             <a class="cta-button cta-secondary" href="stages.html">📋 Stages Overview</a>
-            <a class="cta-button cta-primary" href="stage-5.html">Next Stage · Crew ID Setup ➡️</a>
+            <a class="cta-button cta-primary" href="stage-6.html">Next Stage · 2FA Identity Clearance (BONUS) ➡️</a>
         </div>
 
         <footer>

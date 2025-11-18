@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Step 4.2 · Integrate Headshot Flow with Topic | GroundCrew.AI Mission Guide</title>
+    <title>Step 6.3 · Integrate Flows into Topic | GroundCrew.AI Mission Guide</title>
     <style>
         :root {
             --color-bg-main: #f3f2f1;
@@ -203,6 +203,16 @@
             font-size: 0.98rem;
         }
 
+        .warning {
+            background: rgba(255, 140, 0, 0.1);
+            border-left: 4px solid var(--color-accent-orange);
+            border-radius: var(--radius-md);
+            padding: 18px 20px;
+            color: var(--color-text-main);
+            font-size: 0.98rem;
+            font-weight: 500;
+        }
+
         .code-block {
             background: rgba(0, 31, 63, 0.05);
             border-left: 4px solid var(--color-primary);
@@ -298,120 +308,202 @@
         </header>
 
         <section class="hero">
-            <h1>Step 4.2 · Integrate Headshot Flow with Topic 🧩</h1>
-            <p>Connect the Upload Headshot flow to the topic and complete the integration so users can upload their headshots through the conversation.</p>
+            <h1>Step 6.3 · Integrate Flows into Topic 🧩</h1>
+            <p>Connect the Generate OTP flow to the Verify Email topic, add OTP verification logic, and integrate it with the conversation start options.</p>
         </section>
 
         <section class="stage-body">
             <div class="stage-section">
                 <h2>Mission Checklist</h2>
-                <p>Integrate the flow you created in Step 4.1 with the Upload Headshot topic, configure the input formula, add response messages, and connect it to the conversation start options.</p>
+                <p>Integrate the Generate OTP flow with the Verify Email topic, add an adaptive card for OTP input, create conditional logic to verify the OTP, and connect it to the conversation start topic.</p>
             </div>
 
             <article class="step-card">
                 <div class="step-header">
-                    <div class="step-title">Navigate to Upload Headshot Topic</div>
+                    <div class="step-title">Navigate to Verify Email Topic</div>
                     <span class="step-number">1</span>
                 </div>
                 <p class="step-text">
-                    Go back to the agent and go to your <strong>"Upload Headshot"</strong> topic.
+                    Let us go back to the <strong>"Verify Email"</strong> topic that we have already created.
                 </p>
             </article>
 
             <article class="step-card">
                 <div class="step-header">
-                    <div class="step-title">Add the Flow as a Tool</div>
+                    <div class="step-title">Add Generate OTP Flow as Tool</div>
                     <span class="step-number">2</span>
                 </div>
                 <p class="step-text">
-                    Click the <strong>"+"</strong> button below the question node and select <strong>"Add a tool"</strong> &gt; <strong>"Upload Headshot"</strong> flow that you just created.
+                    Add a node below the adaptive card: <strong>"Add a tool"</strong> &gt; <strong>"Generate OTP"</strong> flow that we have just created.
                 </p>
                 <figure>
-                    <img src="./Images/Stage 4.2 step 2.png" alt="Add a tool showing Upload Headshot flow">
-                    <figcaption>Add the Upload Headshot flow as a tool to the topic.</figcaption>
+                    <img src="./Images/Stage 6.3 step 2.png" alt="Add Generate OTP flow as a tool">
+                    <figcaption>Add the Generate OTP flow as a tool to the topic.</figcaption>
                 </figure>
             </article>
 
             <article class="step-card">
                 <div class="step-header">
-                    <div class="step-title">Configure the Input Formula</div>
+                    <div class="step-title">Configure Flow Inputs</div>
                     <span class="step-number">3</span>
                 </div>
                 <p class="step-text">
-                    In the input section, paste this formula:
+                    In the inputs, select the <strong>"username"</strong> and <strong>"useremail"</strong> variables that we will get from the adaptive cards.
                 </p>
-                <div class="code-block">{ contentBytes: First(System.Activity.Attachments).Content, name: First(System.Activity.Attachments).Name }</div>
-                <div class="tip">
-                    This formula extracts the file content and name from the attachment that the user uploaded through the question node.
-                </div>
+                <figure>
+                    <img src="./Images/Stage 6.3 step 3.png" alt="Configure flow inputs with username and useremail">
+                    <figcaption>Map the username and useremail variables from the adaptive card to the flow inputs.</figcaption>
+                </figure>
             </article>
 
             <article class="step-card">
                 <div class="step-header">
-                    <div class="step-title">Add Response Message</div>
+                    <div class="step-title">Add OTP Input Adaptive Card</div>
                     <span class="step-number">4</span>
                 </div>
                 <p class="step-text">
-                    Click the <strong>"+"</strong> button below the <strong>"Action"</strong> node and add a <strong>"Message"</strong> node. Add the <strong>"Uploaded"</strong> variable to the message.
+                    Add another card node and copy this code into the card editor as you have done previously.
+                </p>
+                <div class="code-block">{
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "type": "AdaptiveCard",
+  "version": "1.5",
+  "body": [
+    {
+      "type": "Container",
+      "style": "emphasis",
+      "bleed": true,
+      "items": [
+        {
+          "type": "TextBlock",
+          "text": "🔐 Enter Your OTP",
+          "weight": "Bolder",
+          "size": "Large",
+          "color": "Accent",
+          "horizontalAlignment": "Center"
+        },
+        {
+          "type": "TextBlock",
+          "text": "We've sent a one-time passcode to your email. Please enter it below to continue ✨",
+          "wrap": true,
+          "spacing": "Small",
+          "horizontalAlignment": "Center"
+        }
+      ]
+    },
+    {
+      "type": "Container",
+      "style": "default",
+      "bleed": true,
+      "items": [
+        {
+          "type": "TextBlock",
+          "text": "📲 One-Time Passcode (OTP)",
+          "weight": "Bolder",
+          "spacing": "Medium"
+        },
+        {
+          "type": "Input.Text",
+          "id": "otp",
+          "placeholder": "Enter your 6-digit code",
+          "maxLength": 6
+        }
+      ]
+    }
+  ],
+  "actions": [
+    {
+      "type": "Action.Submit",
+      "title": "Verify OTP ✅",
+      "data": {
+        "action": "verifyOtp"
+      }
+    }
+  ]
+}</div>
+            </article>
+
+            <article class="step-card">
+                <div class="step-header">
+                    <div class="step-title">Verify Adaptive Card Output</div>
+                    <span class="step-number">5</span>
+                </div>
+                <p class="step-text">
+                    You should see an adaptive card with 3 outputs like this.
                 </p>
                 <figure>
-                    <img src="./Images/Satge 4.2 step 4.png" alt="Message node showing Uploaded variable selection">
-                    <figcaption>Add the Uploaded variable to the message node.</figcaption>
+                    <img src="./Images/Stage 6.3 step 5.png" alt="Adaptive card with OTP input showing 3 outputs">
+                    <figcaption>Verify that the adaptive card displays correctly with the OTP input field.</figcaption>
                 </figure>
+            </article>
+
+            <article class="step-card">
+                <div class="step-header">
+                    <div class="step-title">Add Condition Node for OTP Verification</div>
+                    <span class="step-number">6</span>
+                </div>
                 <p class="step-text">
-                    This will display the confirmation message from the flow (e.g., "Your headshot has been successfully uploaded") to the user.
+                    Let's add a condition node below the adaptive card. For the first condition, select the <strong>"otp"</strong> variable that the user will input to the adaptive card, and the middle box should contain <strong>"Is equal to"</strong>, then select the value <strong>"OTPCode"</strong> which the flow will be giving us as an output. This will verify the OTP.
                 </p>
             </article>
 
             <article class="step-card">
                 <div class="step-header">
-                    <div class="step-title">Add Conversation Start Node</div>
-                    <span class="step-number">5</span>
+                    <div class="step-title">Configure Success Path</div>
+                    <span class="step-number">7</span>
                 </div>
                 <p class="step-text">
-                    Add another node below the <strong>"Message"</strong> node: <strong>"Topic management"</strong> &gt; <strong>"Conversation Start"</strong> and click <strong>"Save"</strong>.
+                    Below the <strong>"Condition"</strong> node with your condition, press the <strong>"+"</strong> button and add a message: <strong>"Your Email has been successfully verified!"</strong>, then add another node <strong>"Topic management"</strong> &gt; <strong>"Go to another topic"</strong> &gt; <strong>"Conversation start"</strong>.
+                </p>
+            </article>
+
+            <article class="step-card">
+                <div class="step-header">
+                    <div class="step-title">Configure Failure Path</div>
+                    <span class="step-number">8</span>
+                </div>
+                <p class="step-text">
+                    Below the <strong>"All other condition"</strong> node, add a <strong>"Message"</strong> node with a message <strong>"Verification failed"</strong> and add another node <strong>"Topic management"</strong> &gt; <strong>"Go to another topic"</strong> &gt; <strong>"Verify Email"</strong>.
                 </p>
                 <p class="step-text">
-                    This returns the user to the conversation start so they can choose another option or continue their journey.
+                    Your conditions should look like this. Save the topic now.
                 </p>
+                <figure>
+                    <img src="./Images/Stage 6.3 step 7.png" alt="Condition node with success path configured">
+                    <figcaption>Configure the success path to show verification message and return to conversation start.</figcaption>
+                </figure>
             </article>
 
             <article class="step-card">
                 <div class="step-header">
                     <div class="step-title">Connect to Conversation Start</div>
-                    <span class="step-number">6</span>
+                    <span class="step-number">9</span>
                 </div>
                 <p class="step-text">
-                    Lastly, under the <strong>"Conversation Start"</strong> topic, go to the condition node that says <strong>"Var1 is equal to Upload Headshot"</strong> and add a node <strong>"Topic management"</strong> &gt; <strong>"Upload Headshot"</strong>.
+                    Now we have to go back to our <strong>"Conversation start"</strong> topic on the system topics. Under the condition, <strong>"Var 1 is equal to 'Verify Email ID'"</strong>, let's add a node <strong>"Topic management"</strong> &gt; <strong>"Go to another topic"</strong> &gt; <strong>"Verify Email"</strong>.
                 </p>
                 <figure>
-                    <img src="./Images/Stage 4.2 step 6.png" alt="Conversation Start topic showing condition node connected to Upload Headshot">
-                    <figcaption>Connect the Upload Headshot option to the topic in Conversation Start.</figcaption>
+                    <img src="./Images/Stage 6.3 step 8.png" alt="Complete condition node with both success and failure paths">
+                    <figcaption>Configure both success and failure paths for OTP verification.</figcaption>
                 </figure>
-                <p class="step-text">
-                    Your end result should look like the image above.
-                </p>
             </article>
 
             <article class="step-card">
                 <div class="step-header">
                     <div class="step-title">Mission Complete</div>
-                    <span class="step-number">7</span>
+                    <span class="step-number">10</span>
                 </div>
                 <p class="step-text">
-                    Congratulations! You have now created a bot that allows you to enquire about day 1 tasks and upload your headshot to the Dataverse table! Great going.
+                    Congratulations! You just integrated the flow to the topic and completed the process to verify email ID!
                 </p>
                 <div class="tip">
-                    Your agent can now handle general enquiries through conversational boosting and accept headshot uploads that are stored in the Dataverse UserVerification table.
+                    The complete 2FA Identity Clearance feature is now integrated. Users can verify their email by receiving an OTP code and entering it through the adaptive card. The system will validate the OTP and either confirm verification or prompt the user to try again.
                 </div>
-                <p class="step-text">
-                    If you are comfortable, try out the bonus steps (Stage 5 - 2FA Identity Clearance), or move to testing your agent's current capabilities!
-                </p>
             </article>
         </section>
 
         <div class="cta-panel">
-            <a class="cta-button cta-secondary" href="stage-4-1.html">⬅️ Back to Step 4.1</a>
+            <a class="cta-button cta-secondary" href="stage-6-2.html">⬅️ Back to Step 6.2</a>
             <a class="cta-button cta-secondary" href="stages.html">📋 Stages Overview</a>
             <a class="cta-button cta-primary" href="stages.html">View All Stages ➡️</a>
         </div>
