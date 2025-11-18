@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Step 4.1 · Build Flow — Upload Headshot and Update Dataverse | GroundCrew.AI Mission Guide</title>
+    <style>
+        :root {
+            --color-bg-main: #f3f2f1;
+            --color-primary: #0078d4;
+            --color-primary-dark: #005a9e;
+            --color-accent-orange: #ff8c00;
+            --color-deep-navy: #001f3f;
+            --color-text-main: #323130;
+            --color-text-muted: #605e5c;
+            --radius-lg: 24px;
+            --radius-md: 16px;
+            --shadow-soft: 0 18px 44px rgba(0, 31, 63, 0.12);
+            font-family: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--color-bg-main);
+            color: var(--color-text-main);
+            line-height: 1.7;
+            letter-spacing: 0.01em;
+            padding: 0 24px 96px;
+        }
+
+        .page-shell {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(243, 242, 241, 0.92);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(0, 31, 63, 0.08);
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+            padding: 16px 0;
+        }
+
+        .brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--color-deep-navy);
+            text-decoration: none;
+        }
+
+        .brand img {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+            border-radius: 10px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 14px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            font-weight: 500;
+            color: var(--color-text-muted);
+            padding: 8px 14px;
+            border-radius: 12px;
+            transition: background 0.2s ease, color 0.2s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a:focus-visible {
+            color: var(--color-primary);
+            background: rgba(0, 120, 212, 0.12);
+        }
+
+        .hero {
+            margin-top: 60px;
+            padding: 48px;
+            background: linear-gradient(135deg, rgba(0, 31, 63, 0.94), rgba(0, 120, 212, 0.92));
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-soft);
+            color: #ffffff;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.2rem, 5vw, 3.2rem);
+            margin-bottom: 16px;
+        }
+
+        .hero p {
+            max-width: 720px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.86);
+        }
+
+        .stage-body {
+            margin-top: 48px;
+            background: #ffffff;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-soft);
+            padding: 40px 44px;
+            display: grid;
+            gap: 36px;
+        }
+
+        .stage-section h2 {
+            font-size: clamp(1.8rem, 3vw, 2.2rem);
+            color: var(--color-deep-navy);
+            margin-bottom: 12px;
+        }
+
+        .stage-section p {
+            color: var(--color-text-muted);
+            font-size: 1.05rem;
+        }
+
+        .step-card {
+            background: rgba(0, 120, 212, 0.05);
+            border: 1px solid rgba(0, 31, 63, 0.08);
+            border-radius: var(--radius-md);
+            padding: 28px;
+            display: grid;
+            gap: 20px;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .step-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .step-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--color-deep-navy);
+        }
+
+        .step-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: rgba(0, 120, 212, 0.16);
+            color: var(--color-primary-dark);
+            font-weight: 700;
+        }
+
+        .step-text {
+            color: var(--color-text-main);
+            font-size: 1.05rem;
+        }
+
+        figure {
+            display: grid;
+            gap: 12px;
+        }
+
+        figure img {
+            width: 100%;
+            border-radius: var(--radius-md);
+            border: 1px solid rgba(0, 31, 63, 0.12);
+            box-shadow: 0 18px 46px rgba(0, 31, 63, 0.12);
+        }
+
+        figure figcaption {
+            font-size: 0.95rem;
+            color: var(--color-text-muted);
+            text-align: center;
+        }
+
+        .tip {
+            background: rgba(0, 120, 212, 0.1);
+            border-left: 4px solid var(--color-primary);
+            border-radius: var(--radius-md);
+            padding: 18px 20px;
+            color: var(--color-text-muted);
+            font-size: 0.98rem;
+        }
+
+        .warning {
+            background: rgba(255, 140, 0, 0.1);
+            border-left: 4px solid var(--color-accent-orange);
+            border-radius: var(--radius-md);
+            padding: 18px 20px;
+            color: var(--color-text-main);
+            font-size: 0.98rem;
+            font-weight: 500;
+        }
+
+        .code-block {
+            background: rgba(0, 31, 63, 0.05);
+            border-left: 4px solid var(--color-primary);
+            border-radius: var(--radius-md);
+            padding: 18px 20px;
+            font-family: "Consolas", "Monaco", monospace;
+            font-size: 0.95rem;
+            color: var(--color-text-main);
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .cta-panel {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            justify-content: center;
+            margin-top: 12px;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 24px;
+            border-radius: 999px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .cta-primary {
+            background: linear-gradient(135deg, rgba(0, 120, 212, 0.92), rgba(0, 90, 158, 0.94));
+            color: #ffffff;
+            box-shadow: 0 16px 36px rgba(0, 120, 212, 0.32);
+        }
+
+        .cta-secondary {
+            background: #ffffff;
+            color: var(--color-primary-dark);
+            border: 1px solid rgba(0, 120, 212, 0.3);
+            box-shadow: 0 12px 28px rgba(0, 31, 63, 0.14);
+        }
+
+        .cta-button:hover,
+        .cta-button:focus-visible {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 44px rgba(0, 120, 212, 0.35);
+        }
+
+        footer {
+            margin-top: 72px;
+            text-align: center;
+            color: var(--color-text-muted);
+            font-size: 0.95rem;
+        }
+
+        footer a {
+            color: var(--color-primary-dark);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        @media (max-width: 720px) {
+            .hero {
+                padding: 36px 24px;
+            }
+
+            .stage-body {
+                padding: 32px 24px;
+            }
+
+            .step-card {
+                padding: 24px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-shell">
+        <header>
+            <nav class="nav">
+                <a class="brand" href="index.html">
+                    <img src="./Images/JTC.jpeg" alt="JTC Logo">
+                    JTC AI Day – Project Runway ✈️
+                </a>
+                <div class="nav-links">
+                    <a href="index.html#mission-brief">Mission 📋</a>
+                    <a href="index.html#agent-features">Agent 🤖</a>
+                    <a href="stages.html">Stages 🛫</a>
+                </div>
+            </nav>
+        </header>
+
+        <section class="hero">
+            <h1>Step 4.1 · Build Flow — Upload Headshot 📂</h1>
+            <p>Create a Power Automate flow to upload headshot images to Dataverse and update the UserVerification table.</p>
+        </section>
+
+        <section class="stage-body">
+            <div class="stage-section">
+                <h2>Mission Checklist</h2>
+                <p>Create a new topic for headshot upload, build a Power Automate flow that connects to Dataverse, and configure it to store uploaded images in the UserVerification table.</p>
+            </div>
+
+            <article class="step-card">
+                <div class="step-header">
+                    <div class="step-title">Create New Topic</div>
+                    <span class="step-number">1</span>
+                </div>
+                <p class="step-text">
+                    Go to <strong>"Custom"</strong> topics in the Topics section and choose <strong>"+ Add a topic"</strong>.
+                </p>
+                <figure>
+                    <img src="./Images/Stage 4.1 Step 1.png" alt="Custom topics section showing Add a topic option">
+                    <figcaption>Create a new custom topic for headshot upload.</figcaption>
+                </figure>
+            </article>
+
+            <article class="step-card">
+                <div class="step-header">
+                    <div class="step-title">Start from Blank</div>
+                    <span class="step-number">2</span>
+                </div>
+                <p class="step-text">
+                    Choose <strong>"Start from blank"</strong> option. Then describe the purpose of this topic in the <strong>"Describe"</strong> section of the trigger node. You may use your own description or copy and paste this description:
+                </p>
+                <div class="code-block">This topic allows users to upload their headshots into the portal</div>
+            </article>
+
+            <article class="step-card">
+                <div class="step-header">
+                    <div class="step-title">Add Question Node</div>
+                    <span class="step-number">3</span>
+                </div>
+                <p class="step-text">
+                    Click on the <strong>"+"</strong> icon below the trigger node and add a question node. Input this on the message section:
+                </p>
+                <div class="code-block">Great! I will help you upload your headshot into the portal! This will kick-off your badge creation process for you to have a smooth landing on Day 1.</div>
+                <p class="step-text">
+                    Next, change the type to <strong>"File"</strong>. You may refer to the image below for better guidance.
+                </p>
+                <figure>
+                    <img src="./Images/Stage 4.1 Step 3.png" alt="Question node configured with File type">
+                    <figcaption>Configure the question node to accept file uploads.</figcaption>
+                </figure>
+            </article>
+
+            <article class="step-card">
+                <div class="step-header">
+                    <div class="step-title">Name the Topic</div>
+                    <span class="step-number">4</span>
+                </div>
+                <p class="step-text">
+                    Go to the section that says <strong>"Untitled"</strong> on the top left and change the name to <strong>"Upload Headshot"</strong>, then click <strong>"Save"</strong>.
+                </p>
+            </article>
+
+            <article class="step-card">
+                <div class="step-header">
+                    <div class="step-title">Navigate to Flows</div>
+                    <span class="step-number">5</span>
+                </div>
+                <p class="step-text">
+                    Now we will be creating the flow to allow the agent to upload the image into Dataverse. On the side taskbar, click <strong>"Flows"</strong> and you will be redirected to the flow creation page.
+                </p>
+            </article>
+
+            <article class="step-card">
+                <div class="step-header">
+                    <div class="step-title">Create New Agent Flow</div>
+                    <span class="step-number">6</span>
+                </div>
+                <p class="step-text">
+                    In the flow creation page, choose <strong>"+ New agent flow"</strong> and you will be brought to this page.
+                </p>
+                <figure>
+                    <img src="./Images/Stage 4.1 Step 6.png" alt="Flows section in Copilot Studio">
+                    <figcaption>Access the Flows section to create a new agent flow.</figcaption>
+                </figure>
+            </article>
+
+            <article class="step-card">
+                <div class="step-header">
+                    <div class="step-title">Configure Flow Trigger</div>
+                    <span class="step-number">7</span>
+                </div>
+                <p class="step-text">
+                    Select <strong>"When an agent calls the flow"</strong>. Then click on <strong>"+ Add an input"</strong>. Choose <strong>"File"</strong> for input type and change the name from <strong>"File content"</strong> to <strong>"Headshot"</strong>.
+                </p>
+            </article>
+
+            <article class="step-card">
+                <div class="step-header">
+                    <div class="step-title">Add Dataverse Action</div>
+                    <span class="step-number">8</span>
+                </div>
+                <p class="step-text">
+                    Next, click on the <strong>"+"</strong> icon below the trigger node and then choose <strong>"Microsoft Dataverse"</strong>.
+                </p>
+                <figure>
+                    <img src="./Images/Stage 4.1 step 8.png" alt="New agent flow creation page">
+                    <figcaption>New agent flow creation page.</figcaption>
+                </figure>
+                <p class="step-text">
+                    After you have selected <strong>"Microsoft Dataverse"</strong>, select <strong>"Upload a file or image to a selected environment"</strong>. You will then see the node as shown below. You can give it any name (e.g., <strong>"Groundcrew"</strong>) and click <strong>"Sign in"</strong> to establish your connection.
+                </p>
+                <figure>
+                    <img src="./Images/Stage 4.1 step 9.png" alt="Flow trigger with File input configured">
+                    <figcaption>Configure the flow trigger with File input named Headshot.</figcaption>
+                </figure>
+            </article>
+
+            <article class="step-card">
+                <div class="step-header">
+                    <div class="step-title">Configure Dataverse Upload</div>
+                    <span class="step-number">9</span>
+                </div>
+                <p class="step-text">
+                    You will then see this node. You may select the environment from a dropdown function. <strong>Ensure to select the same environment as your agent and Dataverse table is in!</strong>
+                </p>
+                <div class="warning">
+                    ⚠️ Important: Make sure you're using the same environment where you created the UserVerification table in Stage 2.
+                </div>
+                <p class="step-text">
+                    <strong>Content Name:</strong> Headshot<br>
+                    <strong>Table name:</strong> Search for the <strong>"UserVerifications"</strong> table and select it.
+                </p>
+                <figure>
+                    <img src="./Images/Stage 4.1 step 10.png" alt="Dataverse upload configuration with environment and table selection">
+                    <figcaption>Configure the environment, content name, and table selection.</figcaption>
+                </figure>
+            </article>
+
+            <article class="step-card">
+                <div class="step-header">
+                    <div class="step-title">Retrieve Row ID from Power Apps</div>
+                    <span class="step-number">10</span>
+                </div>
+                <p class="step-text">
+                    We have to retrieve the RowID from the Power Apps Maker portal. So go to <a href="https://make.powerapps.com" target="_blank" rel="noopener" style="color: var(--color-primary); font-weight: 600;">https://make.powerapps.com</a> and view your UserVerifications table.
+                </p>
+                <p class="step-text">
+                    The GUID is the column named <strong>"UserVerification"</strong>. This is a unique ID created for that row. You can copy it and paste it onto the <strong>"Row ID"</strong> in the connector. Refer to the image below.
+                </p>
+                <figure>
+                    <img src="./Images/Stage 4.1 step 11.png" alt="Upload file or image action configured">
+                    <figcaption>Upload file or image action configured in Dataverse.</figcaption>
+                </figure>
+            </article>
+
+            <article class="step-card">
+                <div class="step-header">
+                    <div class="step-title">Configure Headshot Column</div>
+                    <span class="step-number">11</span>
+                </div>
+                <p class="step-text">
+                    Once you have entered the GUID, the column name <strong>"Headshot"</strong> should appear as a dropdown, select it. For the content, click on the <strong>"lightning"</strong> symbol and choose <strong>"Headshot contentBytes"</strong>.
+                </p>
+                <figure>
+                    <img src="./Images/Stage 4.1 step 12.png" alt="Headshot column and contentBytes selection">
+                    <figcaption>Select the Headshot column and Headshot contentBytes for the content.</figcaption>
+                </figure>
+            </article>
+
+            <article class="step-card">
+                <div class="step-header">
+                    <div class="step-title">Add Response to Agent</div>
+                    <span class="step-number">12</span>
+                </div>
+                <p class="step-text">
+                    Click on the <strong>"+"</strong> button below the Dataverse node and choose <strong>"Respond to agent"</strong> and click <strong>"+ Add an output"</strong> and choose <strong>"Text"</strong>. Name it <strong>"Uploaded"</strong> and type in a message. You may use:
+                </p>
+                <div class="code-block">Your headshot has been successfully uploaded</div>
+            </article>
+
+            <article class="step-card">
+                <div class="step-header">
+                    <div class="step-title">Review and Publish Flow</div>
+                    <span class="step-number">13</span>
+                </div>
+                <p class="step-text">
+                    Great work so far! Your flow should look something like the image below. Once you have checked it, click <strong>"Publish"</strong>.
+                </p>
+                <figure>
+                    <img src="./Images/Stage 4.1 step 14.png" alt="Complete flow showing all nodes">
+                    <figcaption>Review your complete flow before publishing.</figcaption>
+                </figure>
+            </article>
+
+            <article class="step-card">
+                <div class="step-header">
+                    <div class="step-title">Rename the Flow</div>
+                    <span class="step-number">14</span>
+                </div>
+                <p class="step-text">
+                    Once your flow has been published, go to the <strong>"Overview"</strong> tab and click <strong>"Edit"</strong> and change the name to <strong>"Upload Headshot"</strong>.
+                </p>
+                <figure>
+                    <img src="./Images/Stage 4.1 step 15.png" alt="Overview tab showing Edit button and flow name">
+                    <figcaption>Edit the flow name in the Overview tab.</figcaption>
+                </figure>
+            </article>
+
+            <article class="step-card">
+                <div class="step-header">
+                    <div class="step-title">Mission Complete</div>
+                    <span class="step-number">15</span>
+                </div>
+                <p class="step-text">
+                    Congratulations! You have finished building your first flow! Move on to the next step to integrate the flow into your topic!
+                </p>
+                <div class="tip">
+                    Your flow is now ready to upload headshot images to the Dataverse UserVerification table. The next step will show you how to connect this flow to the topic you created earlier.
+                </div>
+            </article>
+        </section>
+
+        <div class="cta-panel">
+            <a class="cta-button cta-secondary" href="stage-4.html">⬅️ Back to Stage 4</a>
+            <a class="cta-button cta-secondary" href="stages.html">📋 Stages Overview</a>
+            <a class="cta-button cta-primary" href="stage-4-2.html">Next Step · Integrate Headshot Flow with Topic ➡️</a>
+        </div>
+
+        <footer>
+            Built for JTC AI Day · Nov '25 ✨ Powered by Microsoft Copilot Studio 🤖<br>
+            Hands-on Guide by Zafir — Solution Engineer, Microsoft 🚀
+        </footer>
+    </div>
+</body>
+</html>
+
