@@ -311,7 +311,12 @@
             <p>Connect the Generate OTP flow to the Verify Email topic, add OTP verification logic, and integrate it with the conversation start options.</p>
         </section>
 
+        <div class="warning" style="margin: 32px auto 0; max-width: 1100px; background: rgba(255, 140, 0, 0.15); border-left: 6px solid var(--color-accent-orange); padding: 24px 28px; border-radius: var(--radius-md); font-size: 1.05rem; box-shadow: 0 4px 12px rgba(255, 140, 0, 0.2);">
+            <strong style="color: var(--color-accent-orange); font-size: 1.1rem;">📧 Important Note:</strong> For users that cannot receive Email OTP via email, you may skip step 6 and 8.
+        </div>
+
         <section class="stage-body">
+
             <div class="stage-section">
                 <h2>Mission Checklist</h2>
                 <p>Integrate the Generate OTP flow with the Verify Email topic, add an adaptive card for OTP input, create conditional logic to verify the OTP, and connect it to the conversation start topic.</p>
@@ -444,6 +449,13 @@
                 <p class="step-text">
                     Let's add a condition node below the adaptive card. For the first condition, select the <strong>"otp"</strong> variable that the user will input to the adaptive card, and the middle box should contain <strong>"Is equal to"</strong>, then select the value <strong>"OTPCode"</strong> which the flow will be giving us as an output. This will verify the OTP.
                 </p>
+                <div class="tip" style="margin-top: 16px;">
+                    <strong>💡 Note:</strong> For users without work email, use the flow as shown in the image below.
+                </div>
+                <figure>
+                    <img src="./Images/Stage 5.3 step 6.PNG" alt="Flow for users without work email - OTP verification flow">
+                    <figcaption>Flow configuration for users without work email - showing OTP input, verification, and success message flow.</figcaption>
+                </figure>
             </article>
 
             <article class="step-card">
