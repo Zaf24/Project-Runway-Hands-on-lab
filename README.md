@@ -1,6 +1,6 @@
-# JTC AI Day – Project Runway ✈️
+# Project Runway ✈️
 
-GroundCrew.AI is a hands-on hackathon experience that guides participants through building a pre-boarding Copilot Studio agent for Quantum Corp’s newest hire, Alex. The site delivers the mission narrative, workshop flow, and step-by-step lab guides that teams use during the JTC AI Day challenge.
+GroundCrew.AI is a hands-on hackathon experience that guides participants through building a pre-boarding Copilot Studio agent for Quantum Corp’s newest hire, Alex. The site delivers the mission narrative, workshop flow, and step-by-step lab guides that teams use during the Project Runway challenge.
 
 ## 🌍 Scenario
 - **Theme:** Project Runway – Mission Smooth Landing  
@@ -35,7 +35,7 @@ python3 -m http.server 8000
 Stop the server with `Ctrl+C` when finished.
 
 ## 🙌 Credits
-- Built for **JTC AI Day · Nov ’25**  
+- Built for **Project Runway · Nov ’25**  
 - Powered by **Microsoft Copilot Studio**  
 - Hands-on guide authored by **Zafir — Solution Engineer, Microsoft**
 
