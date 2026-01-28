@@ -422,18 +422,3 @@ FodyWeavers.xsd
 *.docx
 *.dot
 *.dotx
-
-# Images - exclude from repository
-*.png
-*.jpg
-*.jpeg
-*.gif
-*.bmp
-*.tiff
-*.tif
-*.webp
-*.svg
-*.ico
-*.heic
-*.heif
-Images/
